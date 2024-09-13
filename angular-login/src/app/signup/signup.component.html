@@ -1,0 +1,78 @@
+<div
+  class="formcontainer"
+  style="
+    background-color: var(--en-theme-color-background-surface-elevation-1);
+    width: 400px;
+    padding: 24px;
+    display: flex;
+  "
+>
+  <form>
+    <en-heading tagname="h2">Signup</en-heading>
+    <div>
+      <label>Name</label>
+      <en-text-field
+        variant="secondary"
+        label="Name"
+        name="name"
+        type="text"
+        placeholder="Name"
+        isRequired="true"
+      ></en-text-field>
+    </div>
+    <div>
+      <label>Email</label>
+      <en-text-field
+        variant="secondary"
+        label="Email"
+        name="email"
+        type="email"
+        placeholder="Email"
+        isRequired="true"
+      ></en-text-field>
+    </div>
+    <div>
+      <label>Phone Number</label>
+      <en-text-field
+        variant="secondary"
+        label="Phone number"
+        name="number"
+        type="number"
+        placeholder="Phone number"
+        isRequired="true"
+      ></en-text-field>
+    </div>
+    <div>
+      <label>Password</label>
+      <en-text-field
+        variant="secondary"
+        label="Password"
+        name="password"
+        type="password"
+        placeholder="Password"
+        isRequired="true"
+      ></en-text-field>
+    </div>
+    <div>
+      <label>Confirm Password</label>
+      <en-text-field
+        variant="secondary"
+        label="Confirm Password"
+        name="Confirmpassword"
+        type="Confirm password"
+        placeholder="Password"
+        isRequired="true"
+      ></en-text-field>
+    </div>
+    <div style="margin-top: 8px">
+      <en-button type="submit">Sign up</en-button>
+    </div>
+    <div style="font-size: 12px">
+      Already an User?
+      <en-link data-testid="link" href="#" variant="xs"
+        >Login<en-icon-chevron-right></en-icon-chevron-right
+      ></en-link>
+    </div>
+  </form>
+  <div></div>
+</div>

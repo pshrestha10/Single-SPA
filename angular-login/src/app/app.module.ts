@@ -10,10 +10,12 @@ import { RowGroupingModule } from '@ag-grid-enterprise/row-grouping';
 import { SideBarModule } from '@ag-grid-enterprise/side-bar';
 import { HighchartsChartModule } from 'highcharts-angular';
 
+import { SignupComponent } from './signup/signup.component';
+
 ModuleRegistry.registerModules([RowGroupingModule, SideBarModule]);
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, SignupComponent],
   imports: [
     BrowserModule,
     CommonModule,
