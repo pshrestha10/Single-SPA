@@ -9,6 +9,7 @@ import { ModuleRegistry } from '@ag-grid-community/core';
 import { RowGroupingModule } from '@ag-grid-enterprise/row-grouping';
 import { SideBarModule } from '@ag-grid-enterprise/side-bar';
 import { HighchartsChartModule } from 'highcharts-angular';
+import { LoginComponent } from './login/login.component';
 
 import { SignupComponent } from './signup/signup.component';
 
@@ -21,6 +22,7 @@ ModuleRegistry.registerModules([RowGroupingModule, SideBarModule]);
     CommonModule,
     AppRoutingModule,
     ENModule,
+    LoginComponent
   ],
   providers: [],
   bootstrap: [AppComponent],
