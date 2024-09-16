@@ -12,13 +12,15 @@ import { HighchartsChartModule } from 'highcharts-angular';
 import { DashboardComponent } from "./dashboard/dashboard.component";
 import { ChartsComponent } from './charts/charts.component';
 import { FormsComponent } from './forms/forms.component';
+import { TableComponent } from './table/table.component';
+import { AgGridModule } from 'ag-grid-angular';
 
 
 
 ModuleRegistry.registerModules([RowGroupingModule, SideBarModule]);
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, TableComponent],
   imports: [
     BrowserModule,
     CommonModule,
@@ -26,7 +28,8 @@ ModuleRegistry.registerModules([RowGroupingModule, SideBarModule]);
     ENModule,
     DashboardComponent,
     ChartsComponent,
-    FormsComponent
+    FormsComponent,
+    AgGridModule
 ],
   providers: [],
   bootstrap: [AppComponent],
