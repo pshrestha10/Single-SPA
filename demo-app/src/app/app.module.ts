@@ -9,6 +9,7 @@ import { ModuleRegistry } from '@ag-grid-community/core';
 import { RowGroupingModule } from '@ag-grid-enterprise/row-grouping';
 import { SideBarModule } from '@ag-grid-enterprise/side-bar';
 import { HighchartsChartModule } from 'highcharts-angular';
+import { DashboardComponent } from "./dashboard/dashboard.component";
 
 ModuleRegistry.registerModules([RowGroupingModule, SideBarModule]);
 
@@ -19,7 +20,8 @@ ModuleRegistry.registerModules([RowGroupingModule, SideBarModule]);
     CommonModule,
     AppRoutingModule,
     ENModule,
-  ],
+    DashboardComponent
+],
   providers: [],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
