@@ -10,6 +10,10 @@ import { RowGroupingModule } from '@ag-grid-enterprise/row-grouping';
 import { SideBarModule } from '@ag-grid-enterprise/side-bar';
 import { HighchartsChartModule } from 'highcharts-angular';
 import { DashboardComponent } from "./dashboard/dashboard.component";
+import { ChartsComponent } from './charts/charts.component';
+import { FormsComponent } from './forms/forms.component';
+
+
 
 ModuleRegistry.registerModules([RowGroupingModule, SideBarModule]);
 
@@ -20,7 +24,9 @@ ModuleRegistry.registerModules([RowGroupingModule, SideBarModule]);
     CommonModule,
     AppRoutingModule,
     ENModule,
-    DashboardComponent
+    DashboardComponent,
+    ChartsComponent,
+    FormsComponent
 ],
   providers: [],
   bootstrap: [AppComponent],
