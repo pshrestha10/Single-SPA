@@ -1,7 +1,10 @@
 import { Component } from '@angular/core';
+import { AgGridModule } from 'ag-grid-angular';
 
 @Component({
   selector: 'demo-app-table',
+  standalone: true,
+  imports: [AgGridModule],
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.scss']
 })

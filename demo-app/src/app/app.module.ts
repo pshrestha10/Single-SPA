@@ -20,7 +20,7 @@ import { AgGridModule } from 'ag-grid-angular';
 ModuleRegistry.registerModules([RowGroupingModule, SideBarModule]);
 
 @NgModule({
-  declarations: [AppComponent, TableComponent],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     CommonModule,
@@ -29,7 +29,8 @@ ModuleRegistry.registerModules([RowGroupingModule, SideBarModule]);
     DashboardComponent,
     ChartsComponent,
     FormsComponent,
-    AgGridModule
+    AgGridModule,
+    TableComponent
 ],
   providers: [],
   bootstrap: [AppComponent],
