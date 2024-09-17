@@ -1,5 +1,5 @@
 import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { ChartsComponent } from "../charts/charts.component";
+
 
 @Component({
   selector: 'demo-app-navigation',
@@ -7,7 +7,7 @@ import { ChartsComponent } from "../charts/charts.component";
   styleUrls: ['./navigation.component.scss'],
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  imports: [ChartsComponent]
+  imports: []
 })
 export class NavigationComponent {
 

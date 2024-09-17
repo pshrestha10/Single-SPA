@@ -5,12 +5,12 @@ import { Component, CUSTOM_ELEMENTS_SCHEMA, Input } from '@angular/core';
   templateUrl: './charts.component.html',
   styleUrls: ['./charts.component.scss'],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  standalone:true
+  standalone: true
 })
 export class ChartsComponent {
   @Input() showChart: boolean = false;
 
-  chartOptions = {
+  gpaChartOptions = {
     chart: {
       type: 'pie'
     },
@@ -51,4 +51,39 @@ export class ChartsComponent {
       }
     ]
   };
+
+ 
+  genderChartOptions = {
+    chart: {
+      type: 'column'
+    },
+    title: {
+      text: 'Genders',
+      align: 'left'
+    },
+    xAxis: {
+      title: { text: 'Gender' },
+      categories: ['Male', 'Female','Others', 'Prefer not to say'],
+      crosshair: true,
+      accessibility: { description: 'Gender' }
+    },
+    yAxis: {
+      min: 0,
+      max: 30,
+      title: { text: 'Number' },
+      gridLineDashStyle: 'Dot'
+    },
+    plotOptions: {
+      column: { pointPadding: 0.1, borderWidth: 0 }
+    },
+    credits: { enabled: false },
+    series: [
+      {
+        name: 'Genders',
+        data: [10, 15, 5, 5],  
+        inactiveOtherPoints: true
+      }
+    ]
+  };
+ 
 }
