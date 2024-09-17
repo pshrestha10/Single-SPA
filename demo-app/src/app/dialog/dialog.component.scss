@@ -1,29 +1,29 @@
-en-dialog {
-    --en-dialog-width: 80vw;
-    --en-dialog-height: auto;
-    --en-dialog-max-width: 500px;
-    --en-dialog-max-height: 80vh;
-  
-    .en-dialog-heading {
-      font-size: 1.25rem;
-      padding: 12px;
-      background-color: var(--en-theme-color-background-surface-elevation-2);
-      border-bottom: 1px solid var(--en-theme-color-border);
-    }
-  
-    .en-dialog-footer {
-      padding: 12px;
-      background-color: var(--en-theme-color-background-surface-elevation-2);
-      border-top: 1px solid var(--en-theme-color-border);
-      display: flex;
-      justify-content: flex-end;
-      gap: 8px;
-    }
-  
-    .en-dialog-content {
-      padding: 16px;
-      max-height: calc(var(--en-dialog-max-height) - 100px);
-      overflow-y: auto;
-    }
-  }
-  
+:host {
+  display: block;
+}
+
+.dialog-content {
+  max-height: calc(80vh - 80px); 
+  overflow-y: auto;
+  overflow-x: hidden; 
+}
+.formcontainer {
+  background-color: var(--en-theme-color-background-surface-elevation-1);
+  width: 100%;
+  padding: 24px;
+  box-sizing: border-box; 
+  display: flex;
+  flex-direction: column;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
