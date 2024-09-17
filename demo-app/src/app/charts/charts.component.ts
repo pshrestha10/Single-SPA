@@ -1,18 +1,9 @@
-import { Component, CUSTOM_ELEMENTS_SCHEMA, Input, OnInit } from '@angular/core';
-import { Students } from '../students.services';
-import { Observable, of } from 'rxjs';
-import { catchError, tap } from 'rxjs/operators';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, Input } from '@angular/core';
 
-// Define types for chart data
-type Gender = 'Male' | 'Female' | 'Others' | 'Prefer not to say';
-
-interface GpaRange {
+interface ChartData {
   name: string;
-  count: number;
-}
-
-interface GenderData {
-  [key: string]: number;  // Index signature for dynamic keys
+  y: number;
+  sliced: boolean;
 }
 
 @Component({
@@ -22,13 +13,8 @@ interface GenderData {
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   standalone: true
 })
-export class ChartsComponent implements OnInit {
+export class ChartsComponent {
   @Input() showChart: boolean = false;
-
-  // Define the type for pie chart data
-  pieChartData: { name: string; y: number }[] = [];
-  // Define the type for column chart data
-  columnChartData: number[] = [];
 
   gpaChartOptions = {
     chart: {
@@ -39,6 +25,9 @@ export class ChartsComponent implements OnInit {
       align: 'center',
       verticalAlign: 'middle',
       y: 0
+    },
+    subtitle: {
+      align: 'left'
     },
     tooltip: {
       pointFormat: '<span style="color:{point.color}">●</span> {series.name}: <b>{point.percentage:.1f}%</b>'
@@ -57,73 +46,21 @@ export class ChartsComponent implements OnInit {
     },
     series: [
       {
-        name: 'GPA Range',
-        type: 'pie',
-        data: this.pieChartData
+        data: [] as ChartData[] // Explicitly define the type
       }
     ]
   };
-
-  genderChartOptions = {
-    chart: {
-      type: 'column'
-    },
-    title: {
-      text: 'Genders',
-      align: 'left'
-    },
-    xAxis: {
-      title: { text: 'Gender' },
-      categories: ['Male', 'Female', 'Others', 'Prefer not to say'],
-      crosshair: true,
-      accessibility: { description: 'Gender' }
-    },
-    yAxis: {
-      min: 0,
-      max: 30,
-      title: { text: 'Number' },
-      gridLineDashStyle: 'Dot'
-    },
-    plotOptions: {
-      column: { pointPadding: 0.1, borderWidth: 0 }
-    },
-    credits: { enabled: false },
-    series: [
-      {
-        name: 'Genders',
-        data: this.columnChartData
-      }
-    ]
-  };
-
-  constructor(private studentsService: Students) {}
 
   ngOnInit(): void {
-    this.fetchData();
+    const storedData = localStorage.getItem('studentsData');
+    if (storedData) {
+      const students = JSON.parse(storedData);
+      this.updateChartData(students);
+    }
   }
 
-  fetchData(): void {
-    this.studentsService.fetchData().pipe(
-      tap(response => {
-        console.log('Fetched data:', response); // Log the fetched data
-        localStorage.setItem('studentsData', JSON.stringify(response));
-        this.updateCharts(response);
-      }),
-      catchError(error => {
-        console.error('Error fetching data', error);
-        return of([]); // Return an empty array in case of error
-      })
-    ).subscribe();
-  }
-
-  updateCharts(students: any[]): void {
-    console.log('Updating charts with students data:', students); // Log students data
-    this.updateGpaChartData(students);
-    this.updateGenderChartData(students);
-  }
-
-  updateGpaChartData(students: any[]): void {
-    const ranges: GpaRange[] = [
+  updateChartData(students: any[]): void {
+    const ranges = [
       { name: '0-3.0', count: 0 },
       { name: '3.0-3.2', count: 0 },
       { name: '3.2-3.4', count: 0 },
@@ -142,47 +79,10 @@ export class ChartsComponent implements OnInit {
       else if (gpa >= 3.8 && gpa <= 4.0) ranges[5].count++;
     });
 
-    console.log('GPA ranges data:', ranges); // Log GPA ranges data
-
-    this.pieChartData = ranges.map(range => ({
+    this.gpaChartOptions.series[0].data = ranges.map(range => ({
       name: range.name,
-      y: range.count
+      y: range.count,
+      sliced: true
     }));
-
-    this.gpaChartOptions.series = [{
-      name: 'GPA Range',
-      type: 'pie',
-      data: this.pieChartData
-    }];
-  }
-
-  updateGenderChartData(students: any[]): void {
-    const genderCounts: GenderData = {
-      Male: 0,
-      Female: 0,
-      Others: 0,
-      'Prefer not to say': 0
-    };
-
-    students.forEach(student => {
-      const gender: Gender = student.gender || 'Others'; // Default to 'Others' if no gender is specified
-      if (gender in genderCounts) {
-        genderCounts[gender]++;
-      }
-    });
-
-    console.log('Gender data:', genderCounts); // Log gender data
-
-    this.columnChartData = [
-      genderCounts['Male'],
-      genderCounts['Female'],
-      genderCounts['Others'],
-      genderCounts['Prefer not to say']
-    ];
-
-    this.genderChartOptions.series = [{
-      name: 'Genders',
-      data: this.columnChartData
-    }];
   }
 }
