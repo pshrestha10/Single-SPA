@@ -14,6 +14,8 @@ import { ChartsComponent } from './charts/charts.component';
 import { FormsComponent } from './forms/forms.component';
 import { TableComponent } from './table/table.component';
 import { AgGridModule } from 'ag-grid-angular';
+import { DialogComponent } from './dialog/dialog.component';
+import { NavigationComponent } from "./navigation/navigation.component";
 
 
 
@@ -30,7 +32,9 @@ ModuleRegistry.registerModules([RowGroupingModule, SideBarModule]);
     ChartsComponent,
     FormsComponent,
     AgGridModule,
-    TableComponent
+    TableComponent,
+    DialogComponent,
+    NavigationComponent
 ],
   providers: [],
   bootstrap: [AppComponent],

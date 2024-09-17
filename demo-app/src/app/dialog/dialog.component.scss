@@ -1,0 +1,29 @@
+en-dialog {
+    --en-dialog-width: 80vw;
+    --en-dialog-height: auto;
+    --en-dialog-max-width: 500px;
+    --en-dialog-max-height: 80vh;
+  
+    .en-dialog-heading {
+      font-size: 1.25rem;
+      padding: 12px;
+      background-color: var(--en-theme-color-background-surface-elevation-2);
+      border-bottom: 1px solid var(--en-theme-color-border);
+    }
+  
+    .en-dialog-footer {
+      padding: 12px;
+      background-color: var(--en-theme-color-background-surface-elevation-2);
+      border-top: 1px solid var(--en-theme-color-border);
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+    }
+  
+    .en-dialog-content {
+      padding: 16px;
+      max-height: calc(var(--en-dialog-max-height) - 100px);
+      overflow-y: auto;
+    }
+  }
+  
