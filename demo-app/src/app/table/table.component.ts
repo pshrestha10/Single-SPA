@@ -13,7 +13,7 @@ import { DialogComponent } from '../dialog/dialog.component';
 })
 export class TableComponent implements OnInit {
   columnDefs = [
-    { headerName: 'Serial Number', valueGetter: 'node.rowIndex + 1', flex: 1 },
+    { headerName: 'S N', valueGetter: 'node.rowIndex + 1', flex: 1 },
     { field: 'id', headerName: 'ID', flex: 1 },
     { field: 'name', headerName: 'Name', flex: 2 },
     { field: 'gpa', headerName: 'GPA', flex: 1 },
