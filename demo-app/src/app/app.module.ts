@@ -1,6 +1,6 @@
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
+import { HttpClientModule } from '@angular/common/http'
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ENModule } from 'en-angular';
@@ -34,7 +34,8 @@ ModuleRegistry.registerModules([RowGroupingModule, SideBarModule]);
     AgGridModule,
     TableComponent,
     DialogComponent,
-    NavigationComponent
+    NavigationComponent,
+    HttpClientModule
 ],
   providers: [],
   bootstrap: [AppComponent],
