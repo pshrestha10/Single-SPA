@@ -5,6 +5,10 @@ interface ChartData {
   y: number;
   sliced: boolean;
 }
+type Gender = 'Male' | 'Female' | 'Others' | 'Prefer not to say';
+interface GenderData {
+  [key: string]: number;  
+}
 
 @Component({
   selector: 'demo-app-charts',
@@ -15,7 +19,8 @@ interface ChartData {
 })
 export class ChartsComponent {
   @Input() showChart: boolean = false;
-
+  columnChartData: number[] = [];
+  genderChartOptions: any;
   gpaChartOptions = {
     chart: {
       type: 'pie'
@@ -56,6 +61,7 @@ export class ChartsComponent {
     if (storedData) {
       const students = JSON.parse(storedData);
       this.updateChartData(students);
+      this.updateGenderChartData(students);
     }
   }
 
@@ -85,4 +91,60 @@ export class ChartsComponent {
       sliced: true
     }));
   }
+  updateGenderChartData(students: any[]): void {
+    const genderCounts: GenderData = {
+      Male: 0,
+      Female: 0,
+      Others: 0,
+      'Prefer not to say': 0
+    };
+
+    students.forEach(student => {
+      const gender: Gender = student.gender || 'Others'; 
+      if (gender in genderCounts) {
+        genderCounts[gender]++;
+      }
+    });
+
+    console.log('Gender data:', genderCounts); 
+    this.columnChartData = [
+      genderCounts['Male'],
+      genderCounts['Female'],
+      genderCounts['Others'],
+      genderCounts['Prefer not to say']
+    ];
+
+    this.genderChartOptions= {
+      chart: {
+        type: 'column'
+      },
+      title: {
+        text: 'Genders',
+        align: 'left'
+      },
+      xAxis: {
+        title: { text: 'Gender' },
+        categories: ['Male', 'Female', 'Others', 'Prefer not to say'],
+        crosshair: true,
+        accessibility: { description: 'Gender' }
+      },
+      yAxis: {
+        min: 0,
+        max: 30,
+        title: { text: 'Number' },
+        gridLineDashStyle: 'Dot'
+      },
+      plotOptions: {
+        column: { pointPadding: 0.1, borderWidth: 0 }
+      },
+      credits: { enabled: false },
+      series: [
+        {
+          name: 'Genders',
+          data: this.columnChartData
+        }
+      ]
+    };  
+  }
+
 }
