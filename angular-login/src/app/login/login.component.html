@@ -8,7 +8,6 @@
   <en-heading tagname="h2">Login</en-heading>
   <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
     <div class="input">
-      <label for="email">Email</label>
       <en-text-field
         formControlName="email"
         variant="secondary"
@@ -24,7 +23,6 @@
       </div>
     </div>
     <div class="input">
-      <label for="password">Password</label>
       <en-text-field
         formControlName="password"
         variant="secondary"
