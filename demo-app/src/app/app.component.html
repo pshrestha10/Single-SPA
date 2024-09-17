@@ -1,4 +1,14 @@
-<demo-app-navigation />
-<demo-app-dashboard />
-<demo-app-charts />
-<demo-app-table />
+
+<nav>
+    <en-navigation-menu
+      data-testid="navigation-menu"
+      style="--en-c-navigation-menu-width: 320px"
+    >
+      <en-menu-item routerLink = "dashboard"> Dashboard </en-menu-item>
+      <en-menu-item routerLink = "students-table"> Student Table </en-menu-item>
+      <en-menu-item (click)="navigateToLogin()"> Login </en-menu-item>
+    </en-navigation-menu>
+    <en-heading>View all student data in one place</en-heading>
+  </nav>
+ 
+  <router-outlet></router-outlet>

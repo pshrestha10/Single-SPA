@@ -86,4 +86,11 @@ export class AppComponent implements AfterContentChecked {
     alert('click');
   }
   title = 'demo-app';
+  navigateToLogin() {
+    window.dispatchEvent(new CustomEvent('navigate-to', {
+      detail: {
+        path: '/login'
+      }
+    }));
+  }
 }

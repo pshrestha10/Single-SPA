@@ -120,8 +120,8 @@
     </div>
 
     <div class="form-actions">
-      <en-button>Submit</en-button>
-      <en-button>Reset</en-button>
+      <en-button (click)="onSubmit()">Submit</en-button>
+      <en-button data-testid="reset" type="reset" variant="secondary">Reset</en-button>
     </div>
   </form>
 </div>
