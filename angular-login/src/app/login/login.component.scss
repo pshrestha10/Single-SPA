@@ -1,24 +1,40 @@
-.form-container{
-    margin-left:35rem ;
-    margin-top: 10rem;
-}
-en-heading{
-    margin: 1px;
+.form-container {
+    margin: 10rem auto;
+    width: 25rem;
+    padding: 1.5rem;
+    background-color: var(--en-theme-color-background-surface-elevation-1);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 0.5rem;
+  }
+  
+  en-heading {
+    margin: 0 0 1.5rem 0;
     text-align: center;
-}
-.input{
-    margin-bottom: 1rem;
-}
-en-button{
-    margin-left: 9rem;
-    position: relative;
-}
-input.ng-invalid.ng-touched {
-    border-color: red; // Highlight invalid fields
+  }
+  
+  form > div {
+    margin-bottom: 1.5rem;
+    width: 100%;
+  }
+  
+  en-text-field {
+    width: 100%;
+    max-width: 100%;
+  }
+  
+  en-button {
+    margin-top: 1rem;
+    display: block;
+    width: 100%;
+    max-width: 12.5rem;
+    text-align: center;
   }
   
   small {
     color: red;
     display: block;
-    margin-top: 4px;
+    margin-top: 0.25rem;
   }
