@@ -17,7 +17,15 @@
       [columnDefs]="columnDefs"
       [rowData]="rowData"
       (gridReady)="onGridReady($event)"
+      [pagination]="true"
+      [paginationPageSize]="paginationPageSize"
+      [paginationPageSizeSelector]="paginationPageSizeSelector"
+      [paginationNumberFormatter]="paginationNumberFormatter"
     >
     </ag-grid-angular>
+    <!-- <label for="pageSize">Page Size:</label>
+    <select id="pageSize" (change)="onPageSizeChange($event)">
+      <option *ngFor="let size of paginationPageSizeSelector" [value]="size">{{ size }}</option>
+    </select> -->
   </div>
 </div>
