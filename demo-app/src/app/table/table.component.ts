@@ -2,6 +2,9 @@ import { Component, CUSTOM_ELEMENTS_SCHEMA, OnInit } from '@angular/core';
 import { AgGridModule } from 'ag-grid-angular';
 import { Students } from '../students.services';
 import { DialogComponent } from '../dialog/dialog.component';
+import "@en-icons/edit"
+import "@en-icons/delete"
+import "@en-icons/refresh"
 
 @Component({
   selector: 'demo-app-table',
@@ -12,6 +15,7 @@ import { DialogComponent } from '../dialog/dialog.component';
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class TableComponent implements OnInit {
+  private gridApi: any;
   columnDefs = [
     { headerName: 'S N', valueGetter: 'node.rowIndex + 1', flex: 1 },
     { field: 'id', headerName: 'ID', flex: 1 },
@@ -19,7 +23,16 @@ export class TableComponent implements OnInit {
     { field: 'gpa', headerName: 'GPA', flex: 1, sortable: true,},
     { field: 'email', headerName: 'Email', flex: 2 },
     { field: 'phone', headerName: 'Phone', flex: 1 },
-    { field: 'actions', headerName: 'Actions', flex: 1 }
+    {
+      headerName: 'Actions',
+      flex: 1,
+      cellRenderer: (params: any) => {
+        return `
+          <en-button class="edit-btn" onclick="editStudent(${params.data.id})"><en-icon-edit></en-button>
+          <en-button class="delete-btn" onclick="deleteStudent(${params.data.id})"><en-icon-delete></en-button>
+        `;
+      },
+    }    
   ];
 
   rowData: any[] = []; 
@@ -45,15 +58,21 @@ export class TableComponent implements OnInit {
       }
     );
   }
+  refreshData(): void {
+    this.rowData = [];
+    this.fetchData();
+  }
 
-  // applyFilter(event: Event): void {
-  //   const input = event.target as HTMLInputElement;
-  //   const filterValue = input.value.trim().toLowerCase();
-  //   this.storedData.filterPredicate = (data: any, filter: string) => {
-  //     return data.name.toLowerCase().includes(filter);
-  //   };
-  //   this.storedData.filter = filterValue;
-  // }
+  onGridReady(params: any): void {
+    this.gridApi = params.api; 
+  }
+
+  applyFilter(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    const filterValue = input.value.trim().toLowerCase();
+    
+    this.gridApi.setQuickFilter(filterValue); // Set quick filter on grid
+  }
   // addStudent(){
   //   const dialogRef = this.dialog.open(DialogComponent, {
   //     data: { showChart: 0 },

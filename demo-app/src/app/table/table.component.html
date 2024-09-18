@@ -1,18 +1,14 @@
 <div class="container">
-  <div style="height: 100px; margin-top: 5px">
-    <div
-      style="background: var(--en-theme-color-background-surface-elevation-1)"
-    >
+  <div class="dialog-container">
+    <demo-app-dialog></demo-app-dialog>
+    <en-button class = "refresh" size="md" (click) = "refreshData()"><en-icon-refresh></en-icon-refresh></en-button>
       <en-search-form
         variant="primary"
         label="Search"
-        placeholder="Placeholder"
+        placeholder="Search"
+        (keyup)="applyFilter($event)"
       >
       </en-search-form>
-    </div>
-  </div>
-  <div class="dialog-container">
-    <demo-app-dialog></demo-app-dialog>
   </div>
   <div class="table-container">
     <ag-grid-angular
@@ -20,6 +16,7 @@
       class="ag-theme-alpine-dark"
       [columnDefs]="columnDefs"
       [rowData]="rowData"
+      (gridReady)="onGridReady($event)"
     >
     </ag-grid-angular>
   </div>

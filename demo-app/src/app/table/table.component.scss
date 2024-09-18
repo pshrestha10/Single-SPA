@@ -30,34 +30,11 @@
     width: 100%;
   }
   
-  .ag-theme-alpine {
-    width: 100%;
-    height: 100%;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  }
-  
-  .ag-theme-alpine .ag-body-viewport {
-    overflow: auto;
-  }
-  
-  .ag-theme-alpine .ag-header {
-    background-color: #1e1f2a;
-    color: white;
-    position: sticky;
-    top: 0;
-    z-index: 1;
-  }
-  
-  .ag-theme-alpine .ag-row {
-    color: white;
-  }
-  
-  .ag-theme-alpine .ag-cell {
-    padding: 10px;
-  }
-  
-  .ag-theme-alpine .ag-header-cell {
-    padding: 10px;
-  }
-  
+ en-search-form{
+  background: var(--en-theme-color-background-surface-elevation-1);
+  margin-left: 55rem;
+ }
+
+ .refresh{
+  margin-left: 1rem;
+ }
