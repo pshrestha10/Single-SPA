@@ -1,29 +1,29 @@
 import { Component, CUSTOM_ELEMENTS_SCHEMA, inject, Input } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators,ReactiveFormsModule, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'demo-app-forms',
   templateUrl: './forms.component.html',
   styleUrls: ['./forms.component.scss'],
   standalone:true,
+  imports:[ReactiveFormsModule],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class FormsComponent {
-  fb = inject(FormBuilder);
-  form: FormGroup;
+  form!: FormGroup;
   // private dialogRef = inject(MatDialogRef<FormsComponent>);
   @Input() initialData: any;
   constructor() {
-    this.form = this.fb.group({
-      id: ['', Validators.required],
-      name: ['', [Validators.required, Validators.pattern('^[A-Za-z]*([ ]+[A-Za-z]*)*$'), Validators.minLength(3)]],
-      gender: ['', Validators.required],
-      age: ['', [Validators.required, Validators.min(16), Validators.max(25)]],
-      address: ['',[ Validators.required, Validators.minLength(3)]],
-      email: ['', [Validators.required, Validators.email]],
-      phone: ['',[ Validators.required,Validators.pattern('^\\d{3}[-\\s]?\\d{3}[-\\s]?\\d{4}$')]],
-      courses: ['', Validators.required],
-      gpa: ['', [Validators.required, Validators.min(0), Validators.max(4)]]
+    this.form = new FormGroup({
+      id: new FormControl('', Validators.required),
+      name: new FormControl('', [Validators.required, Validators.pattern('^[A-Za-z]*([ ]+[A-Za-z]*)*$'), Validators.minLength(3)]),
+      gender: new FormControl('', Validators.required),
+      age: new FormControl('', [Validators.required, Validators.min(16), Validators.max(25)]),
+      address: new FormControl('',[ Validators.required, Validators.minLength(3)]),
+      email: new FormControl('', [Validators.required, Validators.email]),
+      phone: new FormControl('',[ Validators.required,Validators.pattern('^\\d{3}[-\\s]?\\d{3}[-\\s]?\\d{4}$')]),
+      courses: new FormControl('', Validators.required),
+      gpa: new FormControl('', [Validators.required, Validators.min(0), Validators.max(4)])
     });
   }
 
@@ -41,6 +41,9 @@ export class FormsComponent {
   }
 
   onSubmit(): void {
+    console.log('Form valid:', this.form.valid);
+    console.log('Form errors:', this.form.errors);
+    console.log('Form value:', this.form.value);
     if (this.form.valid) {
       console.log('Form submitted:', this.form.value);
       const formValue = this.form.value;

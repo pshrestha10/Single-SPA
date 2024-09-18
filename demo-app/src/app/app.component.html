@@ -1,14 +1,13 @@
 
-<nav>
-    <en-navigation-menu
+<nav class="navigation">
+    <en-navigation-menu class="navigation"
       data-testid="navigation-menu"
-      style="--en-c-navigation-menu-width: 320px"
+      style="--en-c-navigation-menu-width: 200px;"
     >
-      <en-menu-item routerLink = "dashboard"> Dashboard </en-menu-item>
-      <en-menu-item routerLink = "students-table"> Student Table </en-menu-item>
-      <en-menu-item (click)="navigateToLogin()"> Login </en-menu-item>
+      <en-menu-item routerLink = "dashboard"><en-icon-chart></en-icon-chart> Dashboard </en-menu-item>
+      <en-menu-item routerLink = "students-table"><en-icon-table></en-icon-table> Student Table </en-menu-item>
+      <en-menu-item class = "Logout" (click)="navigateToLogin()"><en-icon-sign-out></en-icon-sign-out>Logout</en-menu-item>
     </en-navigation-menu>
-    <en-heading>View all student data in one place</en-heading>
   </nav>
- 
+  <en-heading>View all student data in one place</en-heading>
   <router-outlet></router-outlet>

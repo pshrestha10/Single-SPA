@@ -9,13 +9,13 @@
     align-items: center;
   "
 >
-  <form>
+  <form [formGroup]="form" (submit)="onSubmit()">
     <div>
-      <label>ID</label>
       <en-text-field
         variant="secondary"
         label="ID"
-        name="id"
+        name ="id"
+        formControlName="id"
         type="text"
         placeholder="ID"
         isRequired="true"
@@ -23,33 +23,37 @@
     </div>
 
     <div>
-      <label>Name</label>
       <en-text-field
-        variant="secondary"
-        label="Name"
-        name="name"
-        type="text"
-        placeholder="Name"
-        isRequired="true"
-        errornote="Name is required. Only alphabetic characters are allowed."
+      variant="secondary"
+      label="Name"
+      name="name"
+      formControlName="name"
+      type="text"
+      placeholder="Name"
+      isRequired="true"
+      errornote="Name is required. Only alphabetic characters are allowed."
       ></en-text-field>
     </div>
 
     <div>
-      <label>Gender</label>
-      <en-text-field>
-        variant="secondary" label="Gender" name="gender"
-        formControlName="gender" isRequired="true" errornote="Gender is
-        required"
+      <en-text-field
+        variant="secondary"
+        label="Gender"
+        name="gender"
+        formControlName="gender"
+        type="text"
+        placeholder="Gender"
+        isRequired="true"
+        errornote="Gender is required.">
       </en-text-field>
     </div>
 
     <div>
-      <label>Age</label>
       <en-text-field
         variant="secondary"
         label="Age"
         name="age"
+        formControlName="age"
         type="number"
         placeholder="Age"
         min="16"
@@ -59,11 +63,11 @@
     </div>
 
     <div>
-      <label>Address</label>
       <en-text-field
         variant="secondary"
         label="Address"
         name="address"
+        formControlName="address"
         type="text"
         placeholder="Address"
         isRequired="true"
@@ -71,11 +75,11 @@
     </div>
 
     <div>
-      <label>Email</label>
       <en-text-field
         variant="secondary"
         label="Email"
         name="email"
+        formControlName="email"
         type="email"
         placeholder="Email"
         isRequired="true"
@@ -83,11 +87,11 @@
     </div>
 
     <div>
-      <label>Phone</label>
       <en-text-field
         variant="secondary"
         label="Phone"
         name="phone"
+        formControlName="phone"
         type="tel"
         placeholder="Phone"
         isRequired="true"
@@ -95,11 +99,11 @@
     </div>
 
     <div>
-      <label>Courses</label>
       <en-text-field
         variant="secondary"
         label="Courses"
         name="courses"
+        formControlName="courses"
         type="text"
         placeholder="Courses"
         isRequired="true"
@@ -107,11 +111,11 @@
     </div>
 
     <div>
-      <label>GPA</label>
       <en-text-field
         variant="secondary"
         label="GPA"
         name="gpa"
+        formControlName="gpa"
         type="number"
         placeholder="GPA"
         step="0.01"

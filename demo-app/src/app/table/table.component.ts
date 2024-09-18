@@ -2,9 +2,6 @@ import { Component, CUSTOM_ELEMENTS_SCHEMA, OnInit } from '@angular/core';
 import { AgGridModule } from 'ag-grid-angular';
 import { Students } from '../students.services';
 import { DialogComponent } from '../dialog/dialog.component';
-import "@en-icons/edit"
-import "@en-icons/delete"
-import "@en-icons/refresh"
 
 @Component({
   selector: 'demo-app-table',
@@ -71,8 +68,17 @@ export class TableComponent implements OnInit {
     const input = event.target as HTMLInputElement;
     const filterValue = input.value.trim().toLowerCase();
     
-    this.gridApi.setQuickFilter(filterValue); // Set quick filter on grid
+    this.gridApi.setQuickFilter(filterValue); 
   }
+
+  
+  deleteStudent(id: any): void {
+    console.log(id);
+    this.rowData = this.rowData.filter(s => s.id !== id);
+    this.rowData = [...this.rowData];
+    localStorage.setItem('studentsData', JSON.stringify(this.rowData));
+  }
+
   // addStudent(){
   //   const dialogRef = this.dialog.open(DialogComponent, {
   //     data: { showChart: 0 },
