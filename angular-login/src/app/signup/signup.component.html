@@ -9,60 +9,80 @@
     align-items: center;
   "
 >
-  <form>
+  <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
     <en-heading tagname="h1">Signup</en-heading>
-    <div>
-      <en-text-field
-        variant="secondary"
-        label="Name"
-        name="Name"
-        type="text"
-        isRequired="true"
-        class="name"
-      ></en-text-field>
+    
+    <en-text-field
+      ngDefaultControl
+      formControlName="name"
+      variant="secondary"
+      label="Name"
+      type="text"
+      isRequired="true"
+      class="name"
+    ></en-text-field>
+    <div *ngIf="signupForm.get('name')?.invalid && signupForm.get('name')?.touched" style="color: red;">
+      <small>Name is required.</small> 
     </div>
-    <div>
-      <en-text-field
-        variant="secondary"
-        label="Email"
-        name="email"
-        type="email"
-        isRequired="true"
-      ></en-text-field>
+    
+    <en-text-field
+      ngDefaultControl
+      formControlName="email"
+      variant="secondary"
+      label="Email"
+      type="email"
+      isRequired="true"
+    ></en-text-field>
+    <div *ngIf="signupForm.get('email')?.invalid && signupForm.get('email')?.touched" style="color: red;">
+      <small>Valid email is required.</small>
     </div>
-    <div>
-      <en-text-field
-        variant="secondary"
-        label="Phone number"
-        name="number"
-        type="number"
-        isRequired="true"
-      ></en-text-field>
+    <div *ngIf="emailExists" style="color: red;">
+      <small>Email already exists. Please choose another.</small>
     </div>
-    <div>
-      <en-text-field
-        variant="secondary"
-        label="Password"
-        name="password"
-        type="password"
-        isRequired="true"
-      ></en-text-field>
+    
+    <en-text-field
+      ngDefaultControl
+      formControlName="number"
+      variant="secondary"
+      label="Phone number"
+      type="number"
+      isRequired="true"
+    ></en-text-field>
+    <div *ngIf="signupForm.get('number')?.invalid && signupForm.get('number')?.touched" style="color: red;">
+      <small>Phone number is required.</small> 
     </div>
-    <div>
-      <en-text-field
-        variant="secondary"
-        label="Confirm Password"
-        name="Confirmpassword"
-        type="password"
-        isRequired="true"
-      ></en-text-field>
+    
+    <en-text-field
+      ngDefaultControl
+      formControlName="password"
+      variant="secondary"
+      label="Password"
+      type="password"
+      isRequired="true"
+    ></en-text-field>
+    <div *ngIf="signupForm.get('password')?.invalid && signupForm.get('password')?.touched" style="color: red;">
+      <small>Password is required (minimum 6 characters).</small> 
     </div>
+    
+    <en-text-field
+      ngDefaultControl
+      variant="secondary"
+      formControlName="confirmPassword"
+      label="Confirm Password"
+      type="password"
+      isRequired="true"
+    ></en-text-field>
+    <div *ngIf="signupForm.errors?.['mismatch'] && (signupForm.get('confirmPassword')?.touched || signupForm.get('password')?.touched)" style="color: red;">
+      <small>Passwords do not match.</small> 
+    </div>
+    
     <div style="margin-top: 8px">
       <en-button type="submit">Sign up</en-button>
     </div>
-    <div style="font-size: 12px; margin-top: 16px">
-      Already a User?
-      <en-link data-testid="link" href="#" variant="xs">
+    
+    <div style="font-size: 12px">
+      Already a user?
+      <en-link data-testid="link" [routerLink]="['/login']" variant="xs">
         Login
         <en-icon-chevron-right></en-icon-chevron-right>
       </en-link>

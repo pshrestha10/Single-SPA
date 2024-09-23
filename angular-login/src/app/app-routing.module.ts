@@ -2,9 +2,14 @@ import { APP_BASE_HREF } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { EmptyRouteComponent } from './empty-route/empty-route.component';
+import { LoginComponent } from './login/login.component';
+import { SignupComponent } from './signup/signup.component';
+import { ForgotpwdComponent } from './forgotpwd/forgotpwd.component';
 
 const routes: Routes = [
-  { path: '**', component: EmptyRouteComponent },
+  { path: 'login', component: LoginComponent },
+  { path: 'signup', component: SignupComponent},
+  { path: 'forgotpwd', component: ForgotpwdComponent}
 ];
 
 @NgModule({

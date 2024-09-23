@@ -7,19 +7,28 @@
   "
 >
   <en-heading tagname="h1">Forgot Password</en-heading>
-  <form>
-    <div class="input">
-      <en-text-field
-        formControlName="email"
-        variant="secondary"
-        label="Email"
-        id="email"
-        type="email"
-        isRequired="true"
-      ></en-text-field>
+  <form [formGroup]="resetPwd" (ngSubmit)="onSubmit()">
+    <en-text-field
+      ngDefaultControl
+      formControlName="password"
+      variant="secondary"
+      label="New Password"
+      type="password"
+      isRequired="true"
+    ></en-text-field>
+    <en-text-field
+      ngDefaultControl
+      formControlName="confirmPassword"
+      variant="secondary"
+      label="Confirm Password"
+      type="password"
+      isRequired="true"
+    ></en-text-field>
+    <div *ngIf="resetPwd.errors?.['mismatch']">
+      <small>Passwords do not match.</small>
     </div>
     <div style="margin-top: 8px">
-      <en-button type="submit">Reset password</en-button>
+      <en-button type="submit">Reset Password</en-button>
     </div>
   </form>
 </div>
