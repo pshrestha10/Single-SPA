@@ -46,8 +46,12 @@ export class ChartsComponent {
         dataLabels: {
           enabled: true,
           format: '<b>{point.name}</b><br>{point.percentage}%'
+        },
+        events:{
+      click: console.log("hello")
         }
       }
+      
     },
     series: [
       {
