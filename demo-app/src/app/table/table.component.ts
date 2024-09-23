@@ -12,7 +12,7 @@ import { CommonModule } from '@angular/common';
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.scss'],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-})
+}) 
 export class TableComponent implements OnInit {
   private gridApi: any;
   public paginationPageSize = 10;
@@ -22,11 +22,12 @@ export class TableComponent implements OnInit {
   ) => string = (params: PaginationNumberFormatterParams) => {
     return params.value.toLocaleString();
   };
+  rowData: any[] = [];
   columnDefs = [
     { headerName: 'S N', valueGetter: 'node.rowIndex + 1', flex: 1 },
     { field: 'id', headerName: 'ID', flex: 1 },
     { field: 'name', headerName: 'Name', flex: 2 },
-    { field: 'gpa', headerName: 'GPA', flex: 1, sortable: true,},
+    { field: 'gpa', headerName: 'GPA', flex: 1, sortable: true },
     { field: 'email', headerName: 'Email', flex: 2 },
     { field: 'phone', headerName: 'Phone', flex: 1 },
     {
@@ -34,59 +35,39 @@ export class TableComponent implements OnInit {
       flex: 1,
       cellRenderer: (params: any) => {
         return `
-            <en-button class="edit-btn" onclick="editStudent(${params.data.id})"><en-icon-edit></en-button>
-            <en-button class="delete-btn" onclick="deleteStudent(${params.data.id})"><en-icon-delete></en-button>
+          <en-button class="edit-btn" onclick="editStudent(${params.data.id})"><en-icon-edit></en-button>
+          <en-button class="delete-btn" onclick="deleteStudent(${params.data.id})"><en-icon-delete></en-button>
         `;
       },
     }    
   ];
 
-  rowData: any[] = []; 
-  constructor(private students: Students) {}
+  constructor(private studentsService: Students) {}
 
   ngOnInit(): void {
-    const storedData = localStorage.getItem('studentsData');
-    if (storedData) {
-      this.rowData = JSON.parse(storedData);
-    } else {
-      this.fetchData();
-    }
-  }
-
-  fetchData(): void {
-    this.students.fetchData().subscribe(
-      (response: any[]) => {
-        this.rowData = response;
-        localStorage.setItem('studentsData', JSON.stringify(this.rowData));
-      },
-      (error: any) => {
-        console.error('Error fetching data', error);
-      }
-    );
+    this.studentsService.currentStudents.subscribe(data => {
+      this.rowData = data; 
+    });
   }
   refreshData(): void {
-    this.rowData = [];
-    this.fetchData();
+    this.studentsService.fetchData(); 
   }
 
-  onGridReady(params: any): void {
-    this.gridApi = params.api; 
+  deleteStudent(id: any): void {
+    console.log('Deleting student with ID:', id);
   }
 
   applyFilter(event: Event): void {
     const input = event.target as HTMLInputElement;
     const filterValue = input.value.trim().toLowerCase();
-    
     this.gridApi.setQuickFilter(filterValue); 
   }
 
-  
-  deleteStudent(id: any): void {
-    console.log(id);
-    this.rowData = this.rowData.filter(s => s.id !== id);
-    this.rowData = [...this.rowData];
-    localStorage.setItem('studentsData', JSON.stringify(this.rowData));
+  onGridReady(params: any): void {
+    this.gridApi = params.api; 
   }
+}
+
 
   // onPageSizeChange(event: Event): void {
   //   const selectElement = event.target as HTMLSelectElement;
@@ -108,4 +89,3 @@ export class TableComponent implements OnInit {
   //     }
   //   });
   // }
-}
