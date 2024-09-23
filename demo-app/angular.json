@@ -25,6 +25,8 @@
             "inlineStyleLanguage": "scss",
             "assets": ["src/favicon.ico", "src/assets"],
             "styles": [
+              "node_modules/ag-grid-community/styles/ag-grid.css",
+              "node_modules/ag-grid-community/styles/ag-theme-alpine.css",
               "src/styles.scss",
               "./node_modules/en-web-components/dist/en/scss/ag-grid.scss"
             ],

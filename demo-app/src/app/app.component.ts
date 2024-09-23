@@ -66,6 +66,10 @@ import '@en-control-button-group';
 import '@en-tooltip';
 import '@en-mini-map';
 import '@en-mini-map-layer';
+import "@en-icons/edit"
+import "@en-icons/delete"
+import "@en-icons/refresh"
+import "@en-icons/table"
 
 
 @Component({
@@ -86,4 +90,11 @@ export class AppComponent implements AfterContentChecked {
     alert('click');
   }
   title = 'demo-app';
+  navigateToLogin() {
+    window.dispatchEvent(new CustomEvent('navigate-to', {
+      detail: {
+        path: '/login'
+      }
+    }));
+  }
 }

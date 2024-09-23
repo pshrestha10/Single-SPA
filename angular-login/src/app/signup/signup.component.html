@@ -1,0 +1,71 @@
+<div
+  class="form-container"
+  style="
+    background-color: var(--en-theme-color-background-surface-elevation-1);
+    width: 400px;
+    padding: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  "
+>
+  <form>
+    <en-heading tagname="h1">Signup</en-heading>
+    <div>
+      <en-text-field
+        variant="secondary"
+        label="Name"
+        name="Name"
+        type="text"
+        isRequired="true"
+        class="name"
+      ></en-text-field>
+    </div>
+    <div>
+      <en-text-field
+        variant="secondary"
+        label="Email"
+        name="email"
+        type="email"
+        isRequired="true"
+      ></en-text-field>
+    </div>
+    <div>
+      <en-text-field
+        variant="secondary"
+        label="Phone number"
+        name="number"
+        type="number"
+        isRequired="true"
+      ></en-text-field>
+    </div>
+    <div>
+      <en-text-field
+        variant="secondary"
+        label="Password"
+        name="password"
+        type="password"
+        isRequired="true"
+      ></en-text-field>
+    </div>
+    <div>
+      <en-text-field
+        variant="secondary"
+        label="Confirm Password"
+        name="Confirmpassword"
+        type="password"
+        isRequired="true"
+      ></en-text-field>
+    </div>
+    <div style="margin-top: 8px">
+      <en-button type="submit">Sign up</en-button>
+    </div>
+    <div style="font-size: 12px; margin-top: 16px">
+      Already a User?
+      <en-link data-testid="link" href="#" variant="xs">
+        Login
+        <en-icon-chevron-right></en-icon-chevron-right>
+      </en-link>
+    </div>
+  </form>
+</div>

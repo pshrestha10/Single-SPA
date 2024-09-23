@@ -1,0 +1,18 @@
+.chart-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  .chart {
+    flex: 1;
+    max-width: 45rem;
+  }
+  
+  .gender-chart {
+    flex: 1;
+    max-width: 45rem;
+    margin-top: 10rem;
+  }
+  

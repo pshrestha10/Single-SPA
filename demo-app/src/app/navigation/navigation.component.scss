@@ -1,0 +1,18 @@
+nav {
+    display: flex;
+    align-items: center;
+    en-navigation-menu {
+      display: flex;
+      align-items: center;
+      margin-right: 1rem;
+    }
+    en-icon-chart,
+    en-icon-add,
+    en-icon-refresh,
+    en-icon-search{
+      margin-left: 1rem;
+      color:white
+    }
+    
+  }
+  

@@ -1,0 +1,57 @@
+<div
+  class="form-container"
+  style="
+    background-color: var(--en-theme-color-background-surface-elevation-1);
+    width: 400px;
+    padding: 24px;
+  "
+>
+  <en-heading tagname="h1">Login</en-heading>
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <div class="input">
+      <en-text-field
+        formControlName="email"
+        variant="secondary"
+        label="Email"
+        id="email"
+        type="email"
+        isRequired="true"
+      ></en-text-field>
+      <div *ngIf="emailControl?.invalid && emailControl?.touched">
+        <small *ngIf="emailControl?.errors?.['required']"
+          >Email is required.</small
+        >
+        <small *ngIf="emailControl?.errors?.['email']"
+          >Invalid email format.</small
+        >
+      </div>
+    </div>
+    <div class="input">
+      <en-text-field
+        formControlName="password"
+        variant="secondary"
+        label="Password"
+        id="password"
+        type="password"
+        isRequired="true"
+      ></en-text-field>
+      <div *ngIf="passwordControl?.invalid && passwordControl?.touched">
+        <small *ngIf="passwordControl?.errors?.['required']"
+          >Password is required.</small
+        >
+        <small *ngIf="passwordControl?.errors?.['minlength']"
+          >Password must be at least 6 characters long.</small
+        >
+      </div>
+    </div>
+    <div style="margin-top: 8px">
+      <en-button type="submit">Login</en-button>
+    </div>
+    <div style="font-size: 12px">
+      New user?
+      <en-link data-testid="link" href="#" variant="xs"
+        >Sign up<en-icon-chevron-right></en-icon-chevron-right
+      ></en-link>
+    </div>
+  </form>
+</div>
