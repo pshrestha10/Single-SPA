@@ -9,7 +9,7 @@
     align-items: center;
   "
 >
-  <form [formGroup]="additionForm" (submit)="onSubmit()" novalidate>
+  <form [formGroup]="additionForm" (ngSubmit)="onSubmit()" novalidate>
       <en-text-field
         variant="secondary"
         label="ID"
@@ -17,21 +17,24 @@
         placeholder="ID"
         isRequired="true"
         formControlName="id"
-      ngDefaultControl
-      errorNote="{{
-        (checkIfValidStudent() ? 'show this' : 'enter a valid id')
-      }}"></en-text-field>
+        ngDefaultControl
+      ></en-text-field>
+      <div *ngIf="additionForm.get('id')?.invalid && additionForm.get('id')?.touched">
+        <small style="color: red;">Enter a valid ID (alphanumeric).</small>
+      </div>
 
       <en-text-field
-      variant="secondary"
-      label="Name"
-      formControlName="name"
-      type="text"
-      placeholder="Name"
-      isRequired="true"
-      errornote="Name is required. Only alphabetic characters are allowed."
-      ngDefaultControl></en-text-field>
-
+        variant="secondary"
+        label="Name"
+        formControlName="name"
+        type="text"
+        placeholder="Name"
+        isRequired="true"
+        ngDefaultControl
+      ></en-text-field>
+      <div *ngIf="additionForm.get('name')?.invalid && additionForm.get('name')?.touched">
+        <small style="color: red;">Name is required and should contain only letters.</small>
+      </div>
 
       <en-text-field
         variant="secondary"
@@ -39,10 +42,11 @@
         formControlName="gender"
         type="text"
         isRequired="true"
-        errornote="Gender is required."
-        ngDefaultControl>
-      </en-text-field>
-
+        ngDefaultControl
+      ></en-text-field>
+      <div *ngIf="additionForm.get('gender')?.invalid && additionForm.get('gender')?.touched">
+        <small style="color: red;">Gender is required.</small>
+      </div>
 
       <en-text-field
         variant="secondary"
@@ -54,8 +58,11 @@
         min="16"
         max="25"
         isRequired="true"
-        ngDefaultControl></en-text-field>
-
+        ngDefaultControl
+      ></en-text-field>
+      <div *ngIf="additionForm.get('age')?.invalid && additionForm.get('age')?.touched">
+        <small style="color: red;">Age must be between 16 and 25.</small>
+      </div>
 
       <en-text-field
         variant="secondary"
@@ -65,7 +72,11 @@
         type="text"
         placeholder="Address"
         isRequired="true"
-        ngDefaultControl></en-text-field>
+        ngDefaultControl
+      ></en-text-field>
+      <div *ngIf="additionForm.get('address')?.invalid && additionForm.get('address')?.touched">
+        <small style="color: red;">Address is required.</small>
+      </div>
 
       <en-text-field
         variant="secondary"
@@ -75,7 +86,11 @@
         type="email"
         placeholder="Email"
         isRequired="true"
-        ngDefaultControl></en-text-field>
+        ngDefaultControl
+      ></en-text-field>
+      <div *ngIf="additionForm.get('email')?.invalid && additionForm.get('email')?.touched">
+        <small style="color: red;">Enter a valid email.</small>
+      </div>
 
       <en-text-field
         variant="secondary"
@@ -85,7 +100,11 @@
         type="tel"
         placeholder="Phone"
         isRequired="true"
-        ngDefaultControl></en-text-field>
+        ngDefaultControl
+      ></en-text-field>
+      <div *ngIf="additionForm.get('phone')?.invalid && additionForm.get('phone')?.touched">
+        <small style="color: red;">Phone number must be 10 digits.</small>
+      </div>
 
       <en-text-field
         variant="secondary"
@@ -95,7 +114,11 @@
         type="text"
         placeholder="Courses"
         isRequired="true"
-        ngDefaultControl></en-text-field>
+        ngDefaultControl
+      ></en-text-field>
+      <div *ngIf="additionForm.get('courses')?.invalid && additionForm.get('courses')?.touched">
+        <small style="color: red;">Courses are required.</small>
+      </div>
 
       <en-text-field
         variant="secondary"
@@ -106,10 +129,14 @@
         placeholder="GPA"
         step="0.01"
         isRequired="true"
-        ngDefaultControl></en-text-field>
+        ngDefaultControl
+      ></en-text-field>
+      <div *ngIf="additionForm.get('gpa')?.invalid && additionForm.get('gpa')?.touched">
+        <small style="color: red;">GPA must be between 0 and 4.</small>
+      </div>
 
     <div class="form-actions">
-      <en-button (click)="onSubmit()">Submit</en-button>
+      <en-button type="submit">Submit</en-button>
       <en-button data-testid="reset" type="reset" variant="secondary">Reset</en-button>
     </div>
   </form>
