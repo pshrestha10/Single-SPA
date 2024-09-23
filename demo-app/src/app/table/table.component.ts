@@ -16,7 +16,7 @@ import { CommonModule } from '@angular/common';
 export class TableComponent implements OnInit {
   private gridApi: any;
   public paginationPageSize = 10;
-  public paginationPageSizeSelector:  number[] = [5, 10, 20, 40];;
+  public paginationPageSizeSelector:  number[] = [10, 20, 40];;
   public paginationNumberFormatter: (
     params: PaginationNumberFormatterParams,
   ) => string = (params: PaginationNumberFormatterParams) => {
@@ -66,26 +66,11 @@ export class TableComponent implements OnInit {
   onGridReady(params: any): void {
     this.gridApi = params.api; 
   }
+  onPageSizeChange(event: Event): void {
+    const selectElement = event.target as HTMLSelectElement;
+    this.paginationPageSize = Number(selectElement.value);
+    if (this.gridApi) {
+      this.gridApi.paginationSetPageSize(this.paginationPageSize);
+    }
+  }
 }
-
-
-  // onPageSizeChange(event: Event): void {
-  //   const selectElement = event.target as HTMLSelectElement;
-  //   this.paginationPageSize = Number(selectElement.value);
-  //   if (this.gridApi) {
-  //     this.gridApi.paginationSetPageSize(this.paginationPageSize);
-  //   }
-  // }
-  // addStudent(){
-  //   const dialogRef = this.dialog.open(DialogComponent, {
-  //     data: { showChart: 0 },
-  //     width: '80%',
-  //     height: '80%',
-  //   });
-  //   dialogRef.afterClosed().subscribe((newStudent: any) => {
-  //     if (newStudent) {
-  //       this.rowData = [newStudent, ...this.rowData];
-  //       localStorage.setItem('studentsData', JSON.stringify(this.rowData));
-  //     }
-  //   });
-  // }
