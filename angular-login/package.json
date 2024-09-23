@@ -1,5 +1,5 @@
 {
-  "name": "demo-app",
+  "name": "angular-login",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -7,8 +7,8 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "build:single-spa:demo-app": "ng build demo-app --configuration production --base-href .",
-    "serve:single-spa:demo-app": "ng s --project demo-app --disable-host-check --port 4200 --live-reload true"
+    "build:single-spa:angular-login": "ng build angular-login --configuration production --base-href .",
+    "serve:single-spa:angular-login": "ng s --project angular-login --disable-host-check --port 4100 --live-reload true"
   },
   "private": true,
   "dependencies": {
@@ -44,7 +44,6 @@
     "@angular/platform-browser": "^15.2.0",
     "@angular/platform-browser-dynamic": "^15.2.0",
     "@angular/router": "^15.2.0",
-    "ag-grid-angular": "^28.2.0",
     "ag-grid-enterprise": "^30.2.1",
     "ec1-prime-ng": "^1.0.2",
     "en-angular": "0.1.24-dev.110",

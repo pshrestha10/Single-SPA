@@ -66,14 +66,10 @@ import '@en-control-button-group';
 import '@en-tooltip';
 import '@en-mini-map';
 import '@en-mini-map-layer';
-import "@en-icons/edit"
-import "@en-icons/delete"
-import "@en-icons/refresh"
-import "@en-icons/table"
 
 
 @Component({
-  selector: 'demo-app-root',
+  selector: 'angular-login-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
@@ -89,12 +85,5 @@ export class AppComponent implements AfterContentChecked {
   onClick() {
     alert('click');
   }
-  title = 'demo-app';
-  navigateToLogin() {
-    window.dispatchEvent(new CustomEvent('navigate-to', {
-      detail: {
-        path: '/login'
-      }
-    }));
-  }
+  title = 'angular-login-root';
 }

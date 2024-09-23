@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "demo-app": {
+    "angular-login": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -12,12 +12,12 @@
       },
       "root": "",
       "sourceRoot": "src",
-      "prefix": "demo-app",
+      "prefix": "angular-login",
       "architect": {
         "build": {
           "builder": "@angular-builders/custom-webpack:browser",
           "options": {
-            "outputPath": "dist/demo-app",
+            "outputPath": "dist/angular-login",
             "index": "src/index.html",
             "main": "src/main.single-spa.ts",
             "polyfills": ["zone.js"],
@@ -25,18 +25,16 @@
             "inlineStyleLanguage": "scss",
             "assets": ["src/favicon.ico", "src/assets"],
             "styles": [
-              "node_modules/ag-grid-community/styles/ag-grid.css",
-              "node_modules/ag-grid-community/styles/ag-theme-alpine.css",
               "src/styles.scss",
               "./node_modules/en-web-components/dist/en/scss/ag-grid.scss"
             ],
             "scripts": [],
             "customWebpackConfig": {
               "path": "extra-webpack.config.js",
-              "libraryName": "demo-app",
+              "libraryName": "angular-login",
               "libraryTarget": "umd"
             },
-            "deployUrl": "http://localhost:4200/"
+            "deployUrl": "http://localhost:4100/"
           },
           "configurations": {
             "production": {
@@ -76,10 +74,10 @@
           "builder": "@angular-builders/custom-webpack:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "demo-app:build:production"
+              "browserTarget": "angular-login:build:production"
             },
             "development": {
-              "browserTarget": "demo-app:build:development"
+              "browserTarget": "angular-login:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -87,7 +85,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "demo-app:build"
+            "browserTarget": "angular-login:build"
           }
         },
         "test": {
