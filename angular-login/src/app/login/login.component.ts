@@ -1,7 +1,8 @@
 import { Component, CUSTOM_ELEMENTS_SCHEMA, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, AbstractControl } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Router } from '@angular/router';
+
 @Component({
   selector: 'angular-login-login',
   standalone: true,
@@ -13,19 +14,37 @@ import { RouterModule } from '@angular/router';
 export class LoginComponent {
   fb = inject(FormBuilder);
   loginForm: FormGroup;
+  loginError: string | null = null; 
+  showForgotPasswordLink: boolean = false; 
 
-  constructor() {
+  constructor(private router: Router) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(8)]]
+      password: ['', [Validators.required, Validators.minLength(6)]]
     });
   }
 
   onSubmit(): void {
-    if (this.loginForm.valid) {
-      console.log('Form Submitted', this.loginForm.value);
+    const { email, password } = this.loginForm.value;
+    const storedData = JSON.parse(localStorage.getItem('signupData') || 'null');
+    console.log(storedData)
+    console.log(storedData.email, storedData.password, password, email)
+    if (storedData) {
+      if (storedData.email === email) {
+        if (storedData.password === password) {
+          console.log('Login successful');
+          this.router.navigate(['/']);
+        } else {
+          this.loginError = 'Wrong password';
+          this.showForgotPasswordLink = true;
+        }
+      } else {
+        this.loginError = 'Invalid email Sign up.';
+        this.showForgotPasswordLink = false;
+      }
     } else {
-      this.loginForm.markAllAsTouched();
+      this.loginError = 'No user Sign up.';
+      this.showForgotPasswordLink = false;
     }
   }
 

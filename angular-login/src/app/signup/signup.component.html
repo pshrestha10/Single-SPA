@@ -36,6 +36,9 @@
     <div *ngIf="signupForm.get('email')?.invalid && signupForm.get('email')?.touched" style="color: red;">
       <small>Valid email is required.</small>
     </div>
+    <div *ngIf="emailExists" style="color: red;">
+      <small>Email already exists. Please choose another.</small>
+    </div>
     
     <en-text-field
       ngDefaultControl
@@ -46,7 +49,7 @@
       isRequired="true"
     ></en-text-field>
     <div *ngIf="signupForm.get('number')?.invalid && signupForm.get('number')?.touched" style="color: red;">
-      <small>phone number is required.</small> 
+      <small>Phone number is required.</small> 
     </div>
     
     <en-text-field
@@ -62,6 +65,7 @@
     </div>
     
     <en-text-field
+      ngDefaultControl
       variant="secondary"
       formControlName="confirmPassword"
       label="Confirm Password"
