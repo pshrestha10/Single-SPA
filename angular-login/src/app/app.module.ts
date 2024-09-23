@@ -12,11 +12,12 @@ import { HighchartsChartModule } from 'highcharts-angular';
 import { LoginComponent } from './login/login.component';
 
 import { SignupComponent } from './signup/signup.component';
+import { ForgotpwdComponent } from './forgotpwd/forgotpwd.component';
 
 ModuleRegistry.registerModules([RowGroupingModule, SideBarModule]);
 
 @NgModule({
-  declarations: [AppComponent, SignupComponent],
+  declarations: [AppComponent, SignupComponent, ForgotpwdComponent],
   imports: [
     BrowserModule,
     CommonModule,
