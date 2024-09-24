@@ -53,7 +53,4 @@ export class FormsComponent {
       console.log('Form submitted:', this.additionForm.valid);
     }
   }
-  checkIfValidStudent(){
-    return this.additionForm.get('id')?.invalid && (this.additionForm.get('id')?.touched || this.additionForm.get('id')?.dirty);
-  }
 }

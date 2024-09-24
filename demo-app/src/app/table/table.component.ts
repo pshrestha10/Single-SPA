@@ -16,10 +16,15 @@ import { CommonModule } from '@angular/common';
 export class TableComponent implements OnInit {
   private gridApi: any;
   public paginationPageSize = 10;
+<<<<<<< HEAD
   public paginationPageSizeSelector: number[] = [5, 10, 20, 40];
   public paginationNumberFormatter: (
     params: PaginationNumberFormatterParams,
   ) => string = (params: PaginationNumberFormatterParams) => {
+=======
+  public paginationPageSizeSelector: number[] = [10, 20, 40];
+  public paginationNumberFormatter: (params: PaginationNumberFormatterParams) => string = (params: PaginationNumberFormatterParams) => {
+>>>>>>> 6a1bedd1ad41ee5ac8607311d3af5c1104e565ef
     return params.value.toLocaleString();
   };
   rowData: any[] = [];
@@ -36,12 +41,23 @@ export class TableComponent implements OnInit {
       headerName: 'Actions',
       flex: 1,
       cellRenderer: (params: any) => {
-        return `
-          <en-button class="edit-btn" onclick="editStudent(${params.data.id})"><en-icon-edit></en-button>
-          <en-button class="delete-btn" onclick="deleteStudent(${params.data.id})"><en-icon-delete></en-button>
-        `;
+        const editButton = document.createElement('en-button');
+        editButton.innerHTML = `<en-icon-edit></en-icon-edit> Edit`;
+        editButton.className = 'edit-btn';
+        editButton.onclick = () => this.editStudent(params.data.id);
+
+        const deleteButton = document.createElement('en-button');
+        deleteButton.innerHTML = `<en-icon-delete></en-icon-delete> Delete`;
+        deleteButton.className = 'delete-btn';
+        deleteButton.onclick = () => this.deleteStudent(params.data.id);
+
+        const container = document.createElement('div');
+        container.appendChild(editButton);
+        container.appendChild(deleteButton);
+
+        return container;
       },
-    }    
+    },
   ];
 
   constructor(private studentsService: Students) {}
@@ -49,29 +65,56 @@ export class TableComponent implements OnInit {
   ngOnInit(): void {
     this.studentsService.currentStudents.subscribe(data => {
       this.rowData = data;
+<<<<<<< HEAD
       console.log(this.initialData);
+=======
+>>>>>>> 6a1bedd1ad41ee5ac8607311d3af5c1104e565ef
     });
   }
 
   refreshData(): void {
-    this.studentsService.fetchData(); 
+    this.studentsService.fetchData();
   }
 
   deleteStudent(id: any): void {
     console.log('Deleting student with ID:', id);
+    const currentStudents = JSON.parse(localStorage.getItem('studentsData') || '[]');
+    console
+    const updatedStudents = currentStudents.filter((student: any) => student.id !== id);
+    localStorage.setItem('studentsData', JSON.stringify(updatedStudents));
+    console.log(currentStudents, updatedStudents, this.gridApi);
+    this.rowData = updatedStudents;
+    if (this.gridApi) {
+      this.gridApi.setRowData(this.rowData); 
+    }
+
+    if (this.rowData.length === 0) {
+      console.log('No students left in the list.');
+    }
+  }
+
+  editStudent(id: any): void {
+    console.log('Editing student with ID:', id);
+    // Implement editing logic here
   }
 
   applyFilter(event: Event): void {
     const input = event.target as HTMLInputElement;
     const filterValue = input.value.trim().toLowerCase();
-    this.gridApi.setQuickFilter(filterValue); 
+    this.gridApi.setQuickFilter(filterValue);
   }
 
   onGridReady(params: any): void {
+<<<<<<< HEAD
     this.gridApi = params.api; 
     params.api.setRowData(this.rowData);
   }
   
+=======
+    this.gridApi = params.api;
+  }
+
+>>>>>>> 6a1bedd1ad41ee5ac8607311d3af5c1104e565ef
   onPageSizeChange(event: Event): void {
     const selectElement = event.target as HTMLSelectElement;
     this.paginationPageSize = Number(selectElement.value);
