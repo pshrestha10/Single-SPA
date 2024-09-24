@@ -22,11 +22,25 @@ export class TableComponent implements OnInit {
   };
 
   rowData: any[] = [];
+  filteredRowData: any[] = [];
+
   @Input() set data(value: any[]) {
     this.rowData = value;
-    console.log('Updated Table Data:', this.rowData);
     if (this.gridApi) {
       this.gridApi.setRowData(this.rowData);
+    }
+  }
+
+  @Input() set clickedData(value: any[]) {
+    if (value.length > 0) {
+      const { name } = value[0];
+      console.log('Filtering by:', name);
+      this.filteredRowData = this.rowData.filter(student => student.gender === name || student.gpa.toString() === name);
+    } else {
+      this.filteredRowData = this.rowData;
+    }
+    if (this.gridApi) {
+      this.gridApi.setRowData(this.filteredRowData);
     }
   }
 
@@ -65,8 +79,9 @@ export class TableComponent implements OnInit {
   ngOnInit(): void {
     this.studentsService.currentStudents.subscribe(data => {
       this.rowData = data;
-      console.log('Initial Students Data:', this.rowData);
+      this.filteredRowData = data; 
     });
+    
   }
 
   refreshData(): void {
@@ -74,7 +89,6 @@ export class TableComponent implements OnInit {
   }
 
   deleteStudent(id: any): void {
-    console.log('Deleting student with ID:', id);
     const currentStudents = JSON.parse(localStorage.getItem('studentsData') || '[]');
     const updatedStudents = currentStudents.filter((student: any) => student.id !== id);
     localStorage.setItem('studentsData', JSON.stringify(updatedStudents));
@@ -83,29 +97,14 @@ export class TableComponent implements OnInit {
     if (this.gridApi) {
       this.gridApi.setRowData(this.rowData); 
     }
-
-    if (this.rowData.length === 0) {
-      console.log('No students left in the list.');
-    }
   }
 
-  editStudent(id: any): void {
-    console.log('Editing student with ID:', id);
-    // Implement editing logic here
-  }
+  editStudent(id: any): void {}
 
   applyFilter(event: Event): void {
     const input = event.target as HTMLInputElement;
     const filterValue = input.value.trim().toLowerCase();
-    const filteredData = this.rowData.filter((student: any) =>
-      student.name.toLowerCase().includes(filterValue) ||
-      student.email.toLowerCase().includes(filterValue)
-    );
-    this.rowData = filteredData;
-    if (this.gridApi) {
-      this.gridApi.setRowData(this.rowData);
-    }
-    console.log('Filtered Data:', this.rowData); // Log filtered data
+    this.gridApi.setQuickFilter(filterValue); 
   }
 
   onGridReady(params: any): void {

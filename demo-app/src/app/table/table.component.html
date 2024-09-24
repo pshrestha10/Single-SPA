@@ -1,7 +1,6 @@
 <div class="container">
   <div class="dialog-container">
     <demo-app-dialog></demo-app-dialog>
-    <!-- <en-button slot="trigger"><en-icon-add size="md"></en-icon-add></en-button> -->
     <en-button class="refresh" size="md" (click)="refreshData()">
       <en-icon-refresh></en-icon-refresh>
     </en-button>
@@ -20,10 +19,10 @@
 
   <div class="table-container">
     <ag-grid-angular
-      style="width: 100%; height: 100%"
+      style="width: 100%; height: 200px"
       class="ag-theme-alpine-dark"
       [columnDefs]="columnDefs"
-      [rowData]="rowData"
+      [rowData]="filteredRowData.length > 0 ? clickedData : filteredRowData"
       (gridReady)="onGridReady($event)"
       [pagination]="true"
       [paginationPageSize]="paginationPageSize"
@@ -32,4 +31,20 @@
     >
     </ag-grid-angular>
   </div>
+
+  <!-- <h3>Filtered Data</h3>
+  <div class="table-container">
+    <ag-grid-angular
+      style="width: 100%; height: 200px"
+      class="ag-theme-alpine-dark"
+      [columnDefs]="columnDefs"
+      [rowData]="filteredRowData"
+      (gridReady)="onGridReady($event)"
+      [pagination]="true"
+      [paginationPageSize]="paginationPageSize"
+      [paginationPageSizeSelector]="paginationPageSizeSelector"
+      [paginationNumberFormatter]="paginationNumberFormatter"
+    >
+    </ag-grid-angular>
+  </div> -->
 </div>

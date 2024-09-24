@@ -6,7 +6,7 @@ interface ChartData {
   y: number;
   sliced: boolean;
 }
-type Gender = 'Male' | 'Female' | 'Others' | 'Prefer not to say';
+
 interface GenderData {
   [key: string]: number;  
 }
@@ -101,7 +101,7 @@ export class ChartsComponent implements OnInit {
     };
 
     students.forEach(student => {
-      const gender: Gender = student.gender || 'Others'; 
+      const gender = student.gender || 'Others'; 
       if (gender in genderCounts) {
         genderCounts[gender]++;
       }
@@ -149,6 +149,7 @@ export class ChartsComponent implements OnInit {
       name: point.name,
       y: point.y
     }];
+    
     this.clickedDataEmitter.emit(this.clickedData); 
   }
 }
