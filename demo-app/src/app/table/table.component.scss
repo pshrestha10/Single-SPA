@@ -14,8 +14,10 @@
     flex-direction: column;
     align-items: center;
     width: 80%;
-    max-width: 1200px;
+    max-width: 1100px;
     height: 80%; 
+    margin-left: 320px;
+    margin-top: 10rem;
   }
   
   .dialog-container {
@@ -32,17 +34,17 @@
   
  en-search-form{
   background: var(--en-theme-color-background-surface-elevation-1);
-  margin-left: 55rem;
+  margin-left: 50rem;
  }
 
  .refresh{
   margin-left: 1rem;
+  width: 10px;
  }
 
  #pageSize{
-  margin-left: 2rem;
+  margin-left: 4rem;
   background-color: #8981E5;
-  width: 10%;
   height: 30px;
   color: black;
   border: none;

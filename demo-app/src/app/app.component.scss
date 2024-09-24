@@ -5,5 +5,21 @@ en-layout-container{
   font-size: larger;
   background-color: #2a2a3d;
 }
+.dummy-div{
+  height: 70vh;
+}
+.navigation{
+  position: fixed;
+}
+.header {
+  position: fixed;
+  top: 0;
+  left: 320px;
+  right: 10px;
+  background-color: #2d2f3e; 
+  z-index: 1000; 
+  border-radius: 5%;
+
+}
 
 // ::ng-deep
