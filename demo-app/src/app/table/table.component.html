@@ -1,17 +1,21 @@
 <div class="container">
   <div class="dialog-container">
     <demo-app-dialog></demo-app-dialog>
-    <en-button class = "refresh" size="md" (click) = "refreshData()"><en-icon-refresh></en-icon-refresh></en-button>
-    <select  id="pageSize" (change)="onPageSizeChange($event)">
-      <option *ngFor="let size of paginationPageSizeSelector" [value]="size">{{ size }}</option>
+    <en-button class="refresh" size="md" (click)="refreshData()"
+      ><en-icon-refresh></en-icon-refresh
+    ></en-button>
+    <select id="pageSize" (change)="onPageSizeChange($event)">
+      <option *ngFor="let size of paginationPageSizeSelector" [value]="size">
+        {{ size }}
+      </option>
     </select>
-      <en-search-form
-        variant="primary"
-        label="Search"
-        placeholder="Search"
-        (keyup)="applyFilter($event)"
-      >
-      </en-search-form>
+    <en-search-form
+      variant="primary"
+      label="Search"
+      placeholder="Search"
+      (keyup)="applyFilter($event)"
+    >
+    </en-search-form>
   </div>
   <div class="table-container">
     <ag-grid-angular
@@ -28,3 +32,8 @@
     </ag-grid-angular>
   </div>
 </div>
+<!-- <div *ngIf="rowData1">
+  <h3>Clicked Data:</h3>
+  <p>Name: {{ rowData1 }}</p>
+  <p>Value: {{ rowData1 }}</p>
+</div> -->

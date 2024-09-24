@@ -1,4 +1,4 @@
-import { Component, CUSTOM_ELEMENTS_SCHEMA, OnInit } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, Input, OnInit } from '@angular/core';
 import { AgGridModule } from 'ag-grid-angular';
 import { Students } from '../students.services';
 import { DialogComponent } from '../dialog/dialog.component';
@@ -8,7 +8,7 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'demo-app-table',
   standalone: true,
-  imports: [AgGridModule, DialogComponent,CommonModule],
+  imports: [AgGridModule, DialogComponent, CommonModule],
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.scss'],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
@@ -16,13 +16,15 @@ import { CommonModule } from '@angular/common';
 export class TableComponent implements OnInit {
   private gridApi: any;
   public paginationPageSize = 10;
-  public paginationPageSizeSelector:  number[] = [10, 20, 40];;
+  public paginationPageSizeSelector: number[] = [5, 10, 20, 40];
   public paginationNumberFormatter: (
     params: PaginationNumberFormatterParams,
   ) => string = (params: PaginationNumberFormatterParams) => {
     return params.value.toLocaleString();
   };
   rowData: any[] = [];
+  @Input() initialData: any[] = [];
+
   columnDefs = [
     { headerName: 'S N', valueGetter: 'node.rowIndex + 1', flex: 1 },
     { field: 'id', headerName: 'ID', flex: 1 },
@@ -46,9 +48,11 @@ export class TableComponent implements OnInit {
 
   ngOnInit(): void {
     this.studentsService.currentStudents.subscribe(data => {
-      this.rowData = data; 
+      this.rowData = data;
+      console.log(this.initialData);
     });
   }
+
   refreshData(): void {
     this.studentsService.fetchData(); 
   }
@@ -65,7 +69,9 @@ export class TableComponent implements OnInit {
 
   onGridReady(params: any): void {
     this.gridApi = params.api; 
+    params.api.setRowData(this.rowData);
   }
+  
   onPageSizeChange(event: Event): void {
     const selectElement = event.target as HTMLSelectElement;
     this.paginationPageSize = Number(selectElement.value);

@@ -40,4 +40,5 @@ export class Students {
     this.studentsData.next([student, ...currentStudents]);
     localStorage.setItem('studentsData', JSON.stringify(this.studentsData.value));
   }
+  
 }
