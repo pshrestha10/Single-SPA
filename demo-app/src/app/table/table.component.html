@@ -1,35 +1,23 @@
 <div class="container">
   <div class="dialog-container">
     <demo-app-dialog></demo-app-dialog>
-<<<<<<< HEAD
-    <en-button class="refresh" size="md" (click)="refreshData()"
-      ><en-icon-refresh></en-icon-refresh
-    ></en-button>
-    <select id="pageSize" (change)="onPageSizeChange($event)">
-      <option *ngFor="let size of paginationPageSizeSelector" [value]="size">
-        {{ size }}
-      </option>
-=======
+    <!-- <en-button slot="trigger"><en-icon-add size="md"></en-icon-add></en-button> -->
     <en-button class="refresh" size="md" (click)="refreshData()">
       <en-icon-refresh></en-icon-refresh>
     </en-button>
     <select id="pageSize" (change)="onPageSizeChange($event)">
-      <option *ngFor="let size of paginationPageSizeSelector" [value]="size">{{ size }}</option>
->>>>>>> 6a1bedd1ad41ee5ac8607311d3af5c1104e565ef
+      <option *ngFor="let size of paginationPageSizeSelector" [value]="size">
+        {{ size }}
+      </option>
     </select>
     <en-search-form
       variant="primary"
       label="Search"
       placeholder="Search"
       (keyup)="applyFilter($event)"
-<<<<<<< HEAD
-    >
-    </en-search-form>
-=======
     ></en-search-form>
->>>>>>> 6a1bedd1ad41ee5ac8607311d3af5c1104e565ef
   </div>
-  
+
   <div class="table-container">
     <ag-grid-angular
       style="width: 100%; height: 100%"
@@ -45,11 +33,3 @@
     </ag-grid-angular>
   </div>
 </div>
-<<<<<<< HEAD
-<!-- <div *ngIf="rowData1">
-  <h3>Clicked Data:</h3>
-  <p>Name: {{ rowData1 }}</p>
-  <p>Value: {{ rowData1 }}</p>
-</div> -->
-=======
->>>>>>> 6a1bedd1ad41ee5ac8607311d3af5c1104e565ef

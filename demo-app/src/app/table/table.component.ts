@@ -16,19 +16,19 @@ import { CommonModule } from '@angular/common';
 export class TableComponent implements OnInit {
   private gridApi: any;
   public paginationPageSize = 10;
-<<<<<<< HEAD
-  public paginationPageSizeSelector: number[] = [5, 10, 20, 40];
-  public paginationNumberFormatter: (
-    params: PaginationNumberFormatterParams,
-  ) => string = (params: PaginationNumberFormatterParams) => {
-=======
   public paginationPageSizeSelector: number[] = [10, 20, 40];
   public paginationNumberFormatter: (params: PaginationNumberFormatterParams) => string = (params: PaginationNumberFormatterParams) => {
->>>>>>> 6a1bedd1ad41ee5ac8607311d3af5c1104e565ef
     return params.value.toLocaleString();
   };
+
   rowData: any[] = [];
-  @Input() initialData: any[] = [];
+  @Input() set data(value: any[]) {
+    this.rowData = value;
+    console.log('Updated Table Data:', this.rowData);
+    if (this.gridApi) {
+      this.gridApi.setRowData(this.rowData);
+    }
+  }
 
   columnDefs = [
     { headerName: 'S N', valueGetter: 'node.rowIndex + 1', flex: 1 },
@@ -65,10 +65,7 @@ export class TableComponent implements OnInit {
   ngOnInit(): void {
     this.studentsService.currentStudents.subscribe(data => {
       this.rowData = data;
-<<<<<<< HEAD
-      console.log(this.initialData);
-=======
->>>>>>> 6a1bedd1ad41ee5ac8607311d3af5c1104e565ef
+      console.log('Initial Students Data:', this.rowData);
     });
   }
 
@@ -79,10 +76,9 @@ export class TableComponent implements OnInit {
   deleteStudent(id: any): void {
     console.log('Deleting student with ID:', id);
     const currentStudents = JSON.parse(localStorage.getItem('studentsData') || '[]');
-    console
     const updatedStudents = currentStudents.filter((student: any) => student.id !== id);
     localStorage.setItem('studentsData', JSON.stringify(updatedStudents));
-    console.log(currentStudents, updatedStudents, this.gridApi);
+    
     this.rowData = updatedStudents;
     if (this.gridApi) {
       this.gridApi.setRowData(this.rowData); 
@@ -101,20 +97,22 @@ export class TableComponent implements OnInit {
   applyFilter(event: Event): void {
     const input = event.target as HTMLInputElement;
     const filterValue = input.value.trim().toLowerCase();
-    this.gridApi.setQuickFilter(filterValue);
+    const filteredData = this.rowData.filter((student: any) =>
+      student.name.toLowerCase().includes(filterValue) ||
+      student.email.toLowerCase().includes(filterValue)
+    );
+    this.rowData = filteredData;
+    if (this.gridApi) {
+      this.gridApi.setRowData(this.rowData);
+    }
+    console.log('Filtered Data:', this.rowData); // Log filtered data
   }
 
   onGridReady(params: any): void {
-<<<<<<< HEAD
-    this.gridApi = params.api; 
+    this.gridApi = params.api;
     params.api.setRowData(this.rowData);
   }
-  
-=======
-    this.gridApi = params.api;
-  }
 
->>>>>>> 6a1bedd1ad41ee5ac8607311d3af5c1104e565ef
   onPageSizeChange(event: Event): void {
     const selectElement = event.target as HTMLSelectElement;
     this.paginationPageSize = Number(selectElement.value);

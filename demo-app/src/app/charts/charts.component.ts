@@ -1,4 +1,4 @@
-import { Component, CUSTOM_ELEMENTS_SCHEMA, EventEmitter, Input, Output } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, EventEmitter, Input, Output, OnInit } from '@angular/core';
 import { TableComponent } from "../table/table.component";
 
 interface ChartData {
@@ -19,7 +19,7 @@ interface GenderData {
   standalone: true,
   imports: [TableComponent]
 })
-export class ChartsComponent {
+export class ChartsComponent implements OnInit {
   @Input() showChart: boolean = false;
   @Output() clickedDataEmitter = new EventEmitter<any[]>();
  
@@ -36,18 +36,12 @@ export class ChartsComponent {
       verticalAlign: 'middle',
       y: 0
     },
-    subtitle: {
-      align: 'left'
-    },
     tooltip: {
       pointFormat: '<span style="color:{point.color}">●</span> {series.name}: <b>{point.percentage:.1f}%</b>'
     },
     plotOptions: {
       pie: {
-        borderWidth: 0,
-        cursor: 'pointer',
         innerSize: '60%',
-        borderRadius: 0,
         dataLabels: {
           enabled: true,
           format: '<b>{point.name}</b><br>{point.percentage}%'
@@ -59,11 +53,7 @@ export class ChartsComponent {
         }
       }
     },
-    series: [
-      {
-        data: [] as ChartData[] 
-      }
-    ]
+    series: [{ data: [] as ChartData[] }]
   };
 
   ngOnInit(): void {
@@ -125,51 +115,32 @@ export class ChartsComponent {
     ];
 
     this.genderChartOptions = {
-      chart: {
-        type: 'column'
-      },
-      title: {
-        text: 'Genders',
-        align: 'left'
-      },
+      chart: { type: 'column' },
+      title: { text: 'Genders', align: 'left' },
       xAxis: {
-        title: { text: 'Gender' },
         categories: ['Male', 'Female', 'Others', 'Prefer not to say'],
-        crosshair: true,
-        accessibility: { description: 'Gender' }
       },
       yAxis: {
         min: 0,
-        max: 30,
         title: { text: 'Number' },
-        gridLineDashStyle: 'Dot'
       },
       plotOptions: {
         column: {
-          pointPadding: 0.1, 
-          borderWidth: 0,
           events: {
             click: (event: any) => {
               const { name, y } = event.point;
               if (name && y !== undefined) {
                 this.storeClickedData({ name, y });
-              } else {
-                console.error('Clicked data point is missing name or y:', event.point);
               }
             }
           }
         }
       },
-      credits: { enabled: false },
-      series: [
-        {
-          name: 'Genders',
-          data: this.columnChartData.map((count, index) => ({
-            name: ['Male', 'Female', 'Others', 'Prefer not to say'][index],
-            y: count
-          }))
-        }
-      ]
+      series: [{ name: 'Genders', data: this.columnChartData.map((count, index) => ({
+          name: ['Male', 'Female', 'Others', 'Prefer not to say'][index],
+          y: count
+        }))
+      }]
     };  
   }
 
@@ -179,7 +150,5 @@ export class ChartsComponent {
       y: point.y
     }];
     this.clickedDataEmitter.emit(this.clickedData); 
-    
-    localStorage.setItem('clickedChartData', JSON.stringify(this.clickedData));
   }
 }
