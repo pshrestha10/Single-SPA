@@ -1,64 +1,69 @@
 @import "ag-grid-community/styles/ag-theme-alpine.css";
-
 :host {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-    padding: 0;
-    background-color: #1e1f2a;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  background-color: #1e1f2a;
 }
 
 .container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 80%;
-    max-width: 1100px;
-    height: 80%;
-    margin-left: 320px;
-    margin-top: 5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 80%;
+  max-width: 1100px;
+  height: 80%;
+  margin-left: 320px;
+  margin-top: 5rem;
 }
 
 .dialog-container {
-    margin-bottom: 20px; 
-    width: 100%;
-    display: flex;
-    justify-content: left;
+  margin-bottom: 20px; 
+  width: 100%;
+  display: flex;
+  justify-content: left;
 }
 
 .table-container {
-    flex: 1; 
-    width: 100%;
-    height: auto;
-    min-height: 250px;
+  flex: 1; 
+  width: 100%;
+  min-height: 400px; 
+  height: auto;
+}
+
+ag-grid-angular {
+  width: 100%;
+  height: 100%;
+  min-height: 400px;
 }
 
 en-search-form {
-    background: var(--en-theme-color-background-surface-elevation-1);
-    margin-left: 50rem;
+  background: var(--en-theme-color-background-surface-elevation-1);
+  margin-left: 50rem;
 }
 
 .refresh {
-    margin-left: 1rem;
-    width: 10px;
+  margin-left: 1rem;
+  width: 10px;
 }
 
 #pageSize {
-    margin-left: 4rem;
-    background-color: #8981E5;
-    height: 30px;
-    color: black;
-    border: none;
+  margin-left: 4rem;
+  background-color: #8981E5;
+  height: 30px;
+  color: black;
+  border: none;
 }
 
-.edit-btn, .delete-btn {
-    padding: 4px 6px;
-    font-size: 12px;
-    height: auto;
-    border-radius: 4px;
-    border: 1px solid transparent;
-    cursor: pointer;
-    margin: 0 2px;
+.edit-btn{
+  padding: 4px 6px;
+  font-size: 12px;
+  height: auto;
+  border-radius: 4px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  margin: 0 2px;
 }

@@ -32,6 +32,15 @@ en-text-field {
 
 small {
   margin-top: 2px;
-  color: red;
+  color: rgb(251, 134, 134);
   font-size: 12px;
+}
+select{
+  background: #2D2F3E;
+  padding: 14px;
+  border: #babcce;
+  color: #babcce;
+  border-style: solid;
+  border-width: 0.75px;
+  border-radius: 7%;
 }

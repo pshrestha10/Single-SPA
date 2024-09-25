@@ -20,7 +20,7 @@
         ngDefaultControl
       ></en-text-field>
       <div *ngIf="additionForm.get('id')?.invalid && additionForm.get('id')?.touched">
-        <small style="color: red;">Enter a valid ID (alphanumeric).</small>
+        <small style="color: rgb(251, 134, 134);">Enter a valid ID (alphanumeric).</small>
       </div>
 
       <en-text-field
@@ -33,19 +33,18 @@
         ngDefaultControl
       ></en-text-field>
       <div *ngIf="additionForm.get('name')?.invalid && additionForm.get('name')?.touched">
-        <small style="color: red;">Name is required and should contain only letters.</small>
+        <small style="color: rgb(251, 134, 134);">Name is required and should contain only letters.</small>
       </div>
-
-      <en-text-field
-        variant="secondary"
-        label="Gender"
-        formControlName="gender"
-        type="text"
-        isRequired="true"
-        ngDefaultControl
-      ></en-text-field>
+      
+      <select formControlName="gender">
+        <option value="" disabled selected>Gender</option>
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+        <option value="Others">Others</option>
+        <option value="Prefer not to say">Prefer not to say</option>
+      </select>
       <div *ngIf="additionForm.get('gender')?.invalid && additionForm.get('gender')?.touched">
-        <small style="color: red;">Gender is required.</small>
+        <small style="color: rgb(251, 134, 134);">Gender is required.</small>
       </div>
 
       <en-text-field
@@ -61,7 +60,7 @@
         ngDefaultControl
       ></en-text-field>
       <div *ngIf="additionForm.get('age')?.invalid && additionForm.get('age')?.touched">
-        <small style="color: red;">Age must be between 16 and 25.</small>
+        <small style="color: rgb(251, 134, 134);">Age must be between 16 and 25.</small>
       </div>
 
       <en-text-field
@@ -75,7 +74,7 @@
         ngDefaultControl
       ></en-text-field>
       <div *ngIf="additionForm.get('address')?.invalid && additionForm.get('address')?.touched">
-        <small style="color: red;">Address is required.</small>
+        <small style="color: rgb(251, 134, 134);">Address is required.</small>
       </div>
 
       <en-text-field
@@ -89,7 +88,7 @@
         ngDefaultControl
       ></en-text-field>
       <div *ngIf="additionForm.get('email')?.invalid && additionForm.get('email')?.touched">
-        <small style="color: red;">Enter a valid email.</small>
+        <small style="color: rgb(251, 134, 134);">Enter a valid email.</small>
       </div>
 
       <en-text-field
@@ -103,7 +102,7 @@
         ngDefaultControl
       ></en-text-field>
       <div *ngIf="additionForm.get('phone')?.invalid && additionForm.get('phone')?.touched">
-        <small style="color: red;">Phone number must be 10 digits.</small>
+        <small style="color: rgb(251, 134, 134);">Phone number must be 10 digits.</small>
       </div>
 
       <en-text-field
@@ -117,7 +116,7 @@
         ngDefaultControl
       ></en-text-field>
       <div *ngIf="additionForm.get('courses')?.invalid && additionForm.get('courses')?.touched">
-        <small style="color: red;">Courses are required.</small>
+        <small style="color: rgb(251, 134, 134);">Courses are required.</small>
       </div>
 
       <en-text-field
@@ -132,7 +131,7 @@
         ngDefaultControl
       ></en-text-field>
       <div *ngIf="additionForm.get('gpa')?.invalid && additionForm.get('gpa')?.touched">
-        <small style="color: red;">GPA must be between 0 and 4.</small>
+        <small style="color: rgb(251, 134, 134);">GPA must be between 0 and 4.</small>
       </div>
 
     <div class="form-actions">

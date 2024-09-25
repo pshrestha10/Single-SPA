@@ -32,10 +32,18 @@ export class TableComponent implements OnInit {
   }
 
   @Input() set clickedData(value: any[]) {
+    const hyphen = new RegExp('-');
     if (value.length > 0) {
       const { name } = value[0];
       console.log('Filtering by:', name);
-      this.filteredRowData = this.rowData.filter(student => student.gender === name || student.gpa.toString() === name);
+      if (name === 'Male' || name === 'Female' || name === 'Others' || name === 'Prefer not to say') {
+        this.filteredRowData = this.rowData.filter(student => student.gender === name);
+      } else if (hyphen.test(name)) {
+        const abc = this.parseRange(name);
+        console.log('Range:', abc);
+        this.filteredRowData = this.rowData.filter(student => student.gpa >= abc[0] && student.gpa < abc[1]);
+        console.log(this.filteredRowData);
+      }
     } else {
       this.filteredRowData = this.rowData;
     }
@@ -49,6 +57,7 @@ export class TableComponent implements OnInit {
     { field: 'id', headerName: 'ID', flex: 1 },
     { field: 'name', headerName: 'Name', flex: 2 },
     { field: 'gpa', headerName: 'GPA', flex: 1, sortable: true },
+    { field: 'gender', headerName: 'Gender', flex: 1 },
     { field: 'email', headerName: 'Email', flex: 2 },
     { field: 'phone', headerName: 'Phone', flex: 1 },
     {
@@ -56,18 +65,12 @@ export class TableComponent implements OnInit {
       flex: 1,
       cellRenderer: (params: any) => {
         const editButton = document.createElement('en-button');
-        editButton.innerHTML = `<en-icon-edit></en-icon-edit> Edit`;
+        editButton.innerHTML = `<en-icon-dots-horizontal></en-icon-dots-horizontal>`;
         editButton.className = 'edit-btn';
         editButton.onclick = () => this.editStudent(params.data.id);
 
-        const deleteButton = document.createElement('en-button');
-        deleteButton.innerHTML = `<en-icon-delete></en-icon-delete> Delete`;
-        deleteButton.className = 'delete-btn';
-        deleteButton.onclick = () => this.deleteStudent(params.data.id);
-
         const container = document.createElement('div');
         container.appendChild(editButton);
-        container.appendChild(deleteButton);
 
         return container;
       },
@@ -80,12 +83,14 @@ export class TableComponent implements OnInit {
     this.studentsService.currentStudents.subscribe(data => {
       this.rowData = data;
       this.filteredRowData = data; 
+      if (this.gridApi) {
+        this.gridApi.setRowData(this.filteredRowData); // Update grid on data change
+      }
     });
-    
   }
 
   refreshData(): void {
-    this.studentsService.fetchData();
+    this.studentsService.fetchData(); // Fetch new data from API
   }
 
   deleteStudent(id: any): void {
@@ -99,7 +104,9 @@ export class TableComponent implements OnInit {
     }
   }
 
-  editStudent(id: any): void {}
+  editStudent(id: any): void {
+    // Implement edit logic
+  }
 
   applyFilter(event: Event): void {
     const input = event.target as HTMLInputElement;
@@ -109,7 +116,7 @@ export class TableComponent implements OnInit {
 
   onGridReady(params: any): void {
     this.gridApi = params.api;
-    params.api.setRowData(this.rowData);
+    this.gridApi.setRowData(this.rowData); // Set initial row data
   }
 
   onPageSizeChange(event: Event): void {
@@ -118,5 +125,12 @@ export class TableComponent implements OnInit {
     if (this.gridApi) {
       this.gridApi.paginationSetPageSize(this.paginationPageSize);
     }
+  }
+
+  parseRange(rangeString: string): [number, number] {
+    const [minString, maxString] = rangeString.split('-');
+    const min = parseFloat(minString);
+    const max = parseFloat(maxString);
+    return [min, max];
   }
 }

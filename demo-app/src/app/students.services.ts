@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -40,5 +40,4 @@ export class Students {
     this.studentsData.next([student, ...currentStudents]);
     localStorage.setItem('studentsData', JSON.stringify(this.studentsData.value));
   }
-  
 }
