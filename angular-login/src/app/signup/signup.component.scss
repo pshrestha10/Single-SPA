@@ -35,7 +35,7 @@ en-button {
 }
 
 small {
-  color: red;
+  color: rgb(251, 134, 134);
   display: block;
   margin-top: 0.2rem;
 }
@@ -44,4 +44,13 @@ form {
   display: flex;
   flex-direction: column;
   gap: 8px; 
+}
+select{
+  background: #2D2F3E;
+  padding: 14px;
+  border: #babcce;
+  color: #babcce;
+  border-style: solid;
+  border-width: 0.75px;
+  border-radius: 7%;
 }
