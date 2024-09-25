@@ -21,7 +21,7 @@
       isRequired="true"
       class="name"
     ></en-text-field>
-    <div *ngIf="signupForm.get('name')?.invalid && signupForm.get('name')?.touched" style="color: red;">
+    <div *ngIf="signupForm.get('name')?.invalid && signupForm.get('name')?.touched" style="color: rgb(251, 134, 134);">
       <small>Name is required.</small> 
     </div>
     
@@ -33,10 +33,10 @@
       type="email"
       isRequired="true"
     ></en-text-field>
-    <div *ngIf="signupForm.get('email')?.invalid && signupForm.get('email')?.touched" style="color: red;">
+    <div *ngIf="signupForm.get('email')?.invalid && signupForm.get('email')?.touched" style="color: rgb(251, 134, 134);">
       <small>Valid email is required.</small>
     </div>
-    <div *ngIf="emailExists" style="color: red;">
+    <div *ngIf="emailExists" style="color: rgb(251, 134, 134);">
       <small>Email already exists. Please choose another.</small>
     </div>
     
@@ -48,7 +48,7 @@
       type="number"
       isRequired="true"
     ></en-text-field>
-    <div *ngIf="signupForm.get('number')?.invalid && signupForm.get('number')?.touched" style="color: red;">
+    <div *ngIf="signupForm.get('number')?.invalid && signupForm.get('number')?.touched" style="color: rgb(251, 134, 134);">
       <small>Phone number is required.</small> 
     </div>
     
@@ -60,7 +60,7 @@
       type="password"
       isRequired="true"
     ></en-text-field>
-    <div *ngIf="signupForm.get('password')?.invalid && signupForm.get('password')?.touched" style="color: red;">
+    <div *ngIf="signupForm.get('password')?.invalid && signupForm.get('password')?.touched" style="color: rgb(251, 134, 134);">
       <small>Password is required (minimum 6 characters).</small> 
     </div>
     
@@ -72,8 +72,28 @@
       type="password"
       isRequired="true"
     ></en-text-field>
-    <div *ngIf="signupForm.errors?.['mismatch'] && (signupForm.get('confirmPassword')?.touched || signupForm.get('password')?.touched)" style="color: red;">
-      <small>Passwords do not match.</small> 
+    <div *ngIf="signupForm.errors?.['mismatch'] && (signupForm.get('confirmPassword')?.touched || signupForm.get('password')?.touched)" style="color: rgb(251, 134, 134);">
+      <small>Passwords do not match.</small>
+    </div> 
+    
+    <select formControlName="security">
+      <option value="" disabled selected>Select a security question</option>
+      <option value="First pet's name">First pet's name</option>
+      <option value="First school name">First school name</option>
+      <option value="Childhood nickname">Childhood nickname</option>
+      <option value="Mother's maiden name">Mother's maiden name</option>
+    </select>
+
+    <en-text-field
+      ngDefaultControl
+      variant="secondary"
+      formControlName="answer"
+      label="Answer"
+      type="password"
+      isRequired="true"
+    ></en-text-field>
+    <div *ngIf="signupForm.get('answer')?.invalid && signupForm.get('answer')?.touched" style="color: rgb(251, 134, 134);">
+      <small>Answer is required (minimum 6 characters).</small> 
     </div>
     
     <div style="margin-top: 8px">

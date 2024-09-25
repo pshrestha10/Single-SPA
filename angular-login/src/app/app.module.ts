@@ -12,6 +12,7 @@ import { LoginComponent } from './login/login.component';
 
 import { SignupComponent } from './signup/signup.component';
 import { ForgotpwdComponent } from './forgotpwd/forgotpwd.component';
+import { SecurityComponent } from './security/security.component';
 
 ModuleRegistry.registerModules([RowGroupingModule, SideBarModule]);
 
@@ -24,7 +25,8 @@ ModuleRegistry.registerModules([RowGroupingModule, SideBarModule]);
     ENModule,
     LoginComponent,
     SignupComponent,
-    ForgotpwdComponent
+    ForgotpwdComponent,
+    SecurityComponent
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -21,7 +21,7 @@ export class FormsComponent {
     this.additionForm = new FormGroup({
       id: new FormControl('', [Validators.required , Validators.pattern('^[0-9]*$')]),
       name: new FormControl('', [Validators.required, Validators.pattern('^[A-Za-z]*([ ]+[A-Za-z]*)*$'), Validators.minLength(3)]),
-      gender: new FormControl('', Validators.required),
+      gender: new FormControl(''),
       age: new FormControl('', [Validators.required, Validators.min(16), Validators.max(25)]),
       address: new FormControl('', [Validators.required, Validators.minLength(3)]),
       email: new FormControl('', [Validators.required, Validators.email]),

@@ -21,6 +21,8 @@ export class SignupComponent {
       email: ['', [Validators.required, Validators.email]],
       number: ['', [Validators.required, Validators.pattern('^[0-9]{10}$')]], 
       password: ['', [Validators.required, Validators.minLength(6)]],
+      security: [''],
+      answer: ['', [Validators.required, Validators.minLength(6)]],
       confirmPassword: ['', Validators.required]
     }, { validators: this.passwordMatchValidator }); 
   }
@@ -34,6 +36,7 @@ export class SignupComponent {
 
   onSubmit() {
     if (this.signupForm.valid) {
+      console.log('Form Valid:', this.signupForm.valid);
       const existingData = JSON.parse(localStorage.getItem('signupData') || 'null');
 
       if (existingData && existingData.email === this.signupForm.value.email) {
