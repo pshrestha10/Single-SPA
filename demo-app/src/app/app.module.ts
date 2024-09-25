@@ -36,6 +36,7 @@ ModuleRegistry.registerModules([RowGroupingModule, SideBarModule]);
     DialogComponent,
     NavigationComponent,
     HttpClientModule,
+  
 ],
   providers: [],
   bootstrap: [AppComponent],

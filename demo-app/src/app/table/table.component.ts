@@ -99,7 +99,9 @@ export class TableComponent implements OnInit {
     }
   }
 
-  editStudent(id: any): void {}
+  editStudent(id: any): void {
+    console.log
+  }
 
   applyFilter(event: Event): void {
     const input = event.target as HTMLInputElement;

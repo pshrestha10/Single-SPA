@@ -45,6 +45,7 @@
     "@types/webpack-env": "^1.16.2",
     "ag-grid-angular": "^28.2.1",
     "ag-grid-community": "^28.2.1",
+    "ngx-tippy-wrapper": "^6.3.0",
     "single-spa": "^5.9.3",
     "single-spa-layout": "^1.6.0"
   },
