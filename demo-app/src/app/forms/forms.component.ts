@@ -19,7 +19,7 @@ export class FormsComponent {
 
   constructor(private studentsService: Students, private router: Router) {
     this.additionForm = new FormGroup({
-      id: new FormControl('', [Validators.required , Validators.pattern('^[0-9]*$')]),
+      // id: new FormControl('', [Validators.required , Validators.pattern('^[0-9]*$')]),
       name: new FormControl('', [Validators.required, Validators.pattern('^[A-Za-z]*([ ]+[A-Za-z]*)*$'), Validators.minLength(3)]),
       gender: new FormControl(''),
       age: new FormControl('', [Validators.required, Validators.min(16), Validators.max(25)]),

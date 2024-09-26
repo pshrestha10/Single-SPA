@@ -10,7 +10,7 @@
   "
 >
   <form [formGroup]="additionForm" (ngSubmit)="onSubmit()" novalidate>
-      <en-text-field
+      <!-- <en-text-field
         variant="secondary"
         label="ID"
         type="text"
@@ -21,7 +21,7 @@
       ></en-text-field>
       <div *ngIf="additionForm.get('id')?.invalid && additionForm.get('id')?.touched">
         <small style="color: rgb(251, 134, 134);">Enter a valid ID (alphanumeric).</small>
-      </div>
+      </div> -->
 
       <en-text-field
         variant="secondary"
