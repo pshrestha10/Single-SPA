@@ -1,14 +1,15 @@
-import { Component, CUSTOM_ELEMENTS_SCHEMA, Input, OnInit } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, Input, OnInit, ViewChild, ViewContainerRef, ComponentFactoryResolver } from '@angular/core';
 import { AgGridModule } from 'ag-grid-angular';
 import { Students } from '../students.services';
 import { DialogComponent } from '../dialog/dialog.component';
 import { PaginationNumberFormatterParams } from 'ag-grid-community';
 import { CommonModule } from '@angular/common';
+import { EditComponent } from '../edit/edit.component';
 
 @Component({
   selector: 'demo-app-table',
   standalone: true,
-  imports: [AgGridModule, DialogComponent, CommonModule],
+  imports: [AgGridModule, DialogComponent, CommonModule, EditComponent],
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.scss'],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
@@ -35,14 +36,11 @@ export class TableComponent implements OnInit {
     const hyphen = new RegExp('-');
     if (value.length > 0) {
       const { name } = value[0];
-      console.log('Filtering by:', name);
       if (name === 'Male' || name === 'Female' || name === 'Others' || name === 'Prefer not to say') {
         this.filteredRowData = this.rowData.filter(student => student.gender === name);
       } else if (hyphen.test(name)) {
         const abc = this.parseRange(name);
-        console.log('Range:', abc);
         this.filteredRowData = this.rowData.filter(student => student.gpa >= abc[0] && student.gpa < abc[1]);
-        console.log(this.filteredRowData);
       }
     } else {
       this.filteredRowData = this.rowData;
@@ -64,40 +62,43 @@ export class TableComponent implements OnInit {
       headerName: 'Actions',
       flex: 1,
       cellRenderer: (params: any) => {
-        const editButton = document.createElement('en-button');
-        editButton.innerHTML = `<en-icon-dots-horizontal></en-icon-dots-horizontal>`;
-        editButton.className = 'edit-btn';
-        editButton.onclick = () => this.editStudent(params.data.id);
-
         const container = document.createElement('div');
-        container.appendChild(editButton);
+        const factory = this.resolver.resolveComponentFactory(EditComponent);
+        const componentRef = this.vcr.createComponent(factory);
+        componentRef.instance.studentData = params.data.id;
+        container.appendChild(componentRef.location.nativeElement);
+        
+        const deleteButton = document.createElement('en-button');
+        deleteButton.innerHTML = `<en-icon-delete></en-icon-delete>`;
+        deleteButton.className = 'delete-btn';
+        deleteButton.onclick = () => this.deleteStudent(params.data.id);
+        container.appendChild(deleteButton);
 
         return container;
       },
     },
   ];
 
-  constructor(private studentsService: Students) {}
+  constructor(private studentsService: Students, private resolver: ComponentFactoryResolver, private vcr: ViewContainerRef) {}
 
   ngOnInit(): void {
     this.studentsService.currentStudents.subscribe(data => {
       this.rowData = data;
       this.filteredRowData = data; 
       if (this.gridApi) {
-        this.gridApi.setRowData(this.filteredRowData); // Update grid on data change
+        this.gridApi.setRowData(this.filteredRowData); 
       }
     });
   }
 
   refreshData(): void {
-    this.studentsService.fetchData(); // Fetch new data from API
+    this.studentsService.fetchData(); 
   }
 
   deleteStudent(id: any): void {
     const currentStudents = JSON.parse(localStorage.getItem('studentsData') || '[]');
     const updatedStudents = currentStudents.filter((student: any) => student.id !== id);
     localStorage.setItem('studentsData', JSON.stringify(updatedStudents));
-    
     this.rowData = updatedStudents;
     if (this.gridApi) {
       this.gridApi.setRowData(this.rowData); 
@@ -116,7 +117,7 @@ export class TableComponent implements OnInit {
 
   onGridReady(params: any): void {
     this.gridApi = params.api;
-    this.gridApi.setRowData(this.rowData); // Set initial row data
+    this.gridApi.setRowData(this.rowData); 
   }
 
   onPageSizeChange(event: Event): void {
