@@ -19,7 +19,7 @@ export class FormsComponent {
 
   constructor(private studentsService: Students, private router: Router) {
     this.additionForm = new FormGroup({
-      id: new FormControl('', [Validators.required , Validators.pattern('^[0-9]*$')]),
+      id: new FormControl({ value: '', disabled: true }, [Validators.required, Validators.pattern('^[0-9]*$')]), // Read-only field
       name: new FormControl('', [Validators.required, Validators.pattern('^[A-Za-z]*([ ]+[A-Za-z]*)*$'), Validators.minLength(3)]),
       gender: new FormControl('', Validators.required),
       age: new FormControl('', [Validators.required, Validators.min(16), Validators.max(25)]),
@@ -42,10 +42,25 @@ export class FormsComponent {
     }
   }
 
+  private generateUniqueId(): number {
+    const currentStudents = JSON.parse(localStorage.getItem('studentsData') || '[]');
+    const existingIds = currentStudents.map((student: any) => student.id);
+
+    if (existingIds.length === 0) {
+      return 1;
+    }
+
+    const maxId = Math.max(...existingIds);
+    return maxId + 1;
+  }
+
   onSubmit(): void {
     if (this.additionForm.valid) {
-      const formValue = this.additionForm.value;
-      this.studentsService.addStudent(formValue); 
+      const formValue = {
+        ...this.additionForm.value,
+        id: this.generateUniqueId() // Automatically generate the ID
+      };
+      this.studentsService.addStudent(formValue);
       console.log('Form submitted:', formValue);
       window.location.reload();
     } else {
