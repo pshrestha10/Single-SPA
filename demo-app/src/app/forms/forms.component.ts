@@ -19,9 +19,9 @@ export class FormsComponent {
 
   constructor(private studentsService: Students, private router: Router) {
     this.additionForm = new FormGroup({
-      id: new FormControl({ value: '', disabled: true }, [Validators.required, Validators.pattern('^[0-9]*$')]), // Read-only field
+      // id: new FormControl('', [Validators.required , Validators.pattern('^[0-9]*$')]),
       name: new FormControl('', [Validators.required, Validators.pattern('^[A-Za-z]*([ ]+[A-Za-z]*)*$'), Validators.minLength(3)]),
-      gender: new FormControl('', Validators.required),
+      gender: new FormControl(''),
       age: new FormControl('', [Validators.required, Validators.min(16), Validators.max(25)]),
       address: new FormControl('', [Validators.required, Validators.minLength(3)]),
       email: new FormControl('', [Validators.required, Validators.email]),

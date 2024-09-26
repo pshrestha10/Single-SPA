@@ -30,12 +30,14 @@ en-button {
   margin-top: 1rem;
   display: block;
   width: 100%;
-  max-width: 12.5rem;
+  // max-width: 12.5rem;
+  // background-color: #8981E5;
   text-align: center;
+
 }
 
 small {
-  color: red;
+  color: rgb(251, 134, 134);
   display: block;
   margin-top: 0.2rem;
 }
@@ -47,4 +49,10 @@ form {
 }
 en-link{
   margin-left: 3px;
+}
+.forgotpwd{
+  margin-left: 5rem;
+}
+.en-c-button {
+  width: 100%;
 }

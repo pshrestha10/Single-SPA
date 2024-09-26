@@ -1,7 +1,7 @@
 .form-container {
-    margin: 10rem auto;
+    margin: 14.5rem auto;
     width: 25rem;
-    padding: 2rem;
+    padding: 1.5rem;
     background-color: var(--en-theme-color-background-surface-elevation-1);
     display: flex;
     flex-direction: column;
@@ -16,9 +16,9 @@
     text-align: center;
   }
   
-  .input {
+  form > div {
+    margin-bottom: 0.5rem; 
     width: 100%;
-    margin-bottom: 1.5rem;
   }
   
   en-text-field {
@@ -26,22 +26,22 @@
     max-width: 100%;
   }
   
-  .form-actions {
-    margin-top: 8px;
-    display: flex;
-    justify-content: center;
+  en-button {
+    margin-top: 1rem;
+    display: block;
+    width: 100%;
+    max-width: 12.5rem;
+    text-align: center;
   }
   
   small {
     color: rgb(251, 134, 134);
     display: block;
-    margin-top: 0.25rem;
+    margin-top: 0.2rem;
   }
-  en-text-field{
-    margin-bottom: 1rem;
-  }
-  form{
+  
+  form {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 8px; 
   }

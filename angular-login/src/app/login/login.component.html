@@ -38,13 +38,9 @@
         <small *ngIf="passwordControl?.errors?.['minlength']">Password must be at least 6 characters long.</small>
       </div>
       
-      <en-button type="submit">Login</en-button>
+      <en-button type="submit" style="width: 100%;">Login</en-button>
       <div *ngIf="loginError"  style="display: flex;">
         <small>{{ loginError }}</small>
-        <en-link data-testid="link" [routerLink]="['/forgotpwd']" variant="xs">
-          Forgot Password?
-          <en-icon-chevron-right></en-icon-chevron-right>
-        </en-link>
       </div>
       
       <div style="font-size: 12px">
@@ -53,6 +49,11 @@
           Sign up
           <en-icon-chevron-right></en-icon-chevron-right>
         </en-link>
+        <en-link data-testid="link" [routerLink]="['/security']" variant="xs" class="forgotpwd">
+          Forgot Password?
+          <en-icon-chevron-right></en-icon-chevron-right>
+        </en-link>
       </div>
+      
   </form>
 </div>

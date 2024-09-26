@@ -1,0 +1,33 @@
+<div
+  class="form-container"
+  style="
+    background-color: var(--en-theme-color-background-surface-elevation-1);
+    width: 400px;
+    padding: 24px;
+  "
+>
+  <en-heading tagname="h1">Answer the security question</en-heading>
+  <form (ngSubmit)="onSubmit()" [formGroup]="securityForm">
+    
+    <div *ngIf="securityQuestion">
+      <p>{{ securityQuestion }}</p>
+    </div>
+
+    <en-text-field
+      ngDefaultControl
+      formControlName="securityAnswer"
+      variant="secondary"
+      label="Answer"
+      type="password"
+      isRequired="true"
+    ></en-text-field>
+    
+    <div *ngIf="errorMessage" style="color: red; margin-top: 8px;">
+      <small>{{ errorMessage }}</small>
+    </div>
+
+    <div style="margin-top: 8px">
+      <en-button type="submit" [disabled]="securityForm.invalid">Reset Password</en-button>
+    </div>
+  </form>
+</div>

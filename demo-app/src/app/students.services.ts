@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -37,8 +37,13 @@ export class Students {
 
   addStudent(student: any): void {
     const currentStudents = this.studentsData.value;
-    this.studentsData.next([student, ...currentStudents]);
+    const largestId = currentStudents.reduce((maxId: number, s: any) => {
+        return Math.max(maxId, s.id || 0);
+    }, 0);
+    console.log("Largest ID:", largestId);
+    const newStudent = { ...student, id: largestId + 1 };
+    console.log("New Student:", newStudent);
+    this.studentsData.next([newStudent, ...currentStudents]);
     localStorage.setItem('studentsData', JSON.stringify(this.studentsData.value));
   }
-  
 }
