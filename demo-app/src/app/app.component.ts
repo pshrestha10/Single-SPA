@@ -71,6 +71,7 @@ import "@en-icons/delete";
 import "@en-icons/refresh";
 import "@en-icons/table";
 import "@en-product-logo";
+import "@en-icons/reset";
 
 @Component({
   selector: 'demo-app-root',
