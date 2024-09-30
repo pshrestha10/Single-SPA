@@ -66,6 +66,7 @@ import '@en-control-button-group';
 import '@en-tooltip';
 import '@en-mini-map';
 import '@en-mini-map-layer';
+import '@en-icons/reset'
 
 
 @Component({

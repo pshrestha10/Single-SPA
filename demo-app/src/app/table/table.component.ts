@@ -1,8 +1,8 @@
-import { Component, CUSTOM_ELEMENTS_SCHEMA, Input, OnInit, ViewChild, ViewContainerRef, ComponentFactoryResolver } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, Input, OnInit, ViewChild, ViewContainerRef, ComponentFactoryResolver, ElementRef, Renderer2 } from '@angular/core';
 import { AgGridModule } from 'ag-grid-angular';
 import { Students } from '../students.services';
 import { DialogComponent } from '../dialog/dialog.component';
-import { PaginationNumberFormatterParams } from 'ag-grid-community';
+import { PaginationNumberFormatterParams, RowSelectedEvent, RowNode } from 'ag-grid-community';
 import { CommonModule } from '@angular/common';
 import { EditComponent } from '../edit/edit.component';
 
@@ -13,7 +13,7 @@ import { EditComponent } from '../edit/edit.component';
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.scss'],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-}) 
+})
 export class TableComponent implements OnInit {
   private gridApi: any;
   public paginationPageSize = 10;
@@ -24,6 +24,15 @@ export class TableComponent implements OnInit {
 
   rowData: any[] = [];
   filteredRowData: any[] = [];
+  selectedRowData: any = null; // Store selected row data
+ 
+  constructor(
+    private studentsService: Students, 
+    private resolver: ComponentFactoryResolver, 
+    private vcr: ViewContainerRef,
+    private renderer: Renderer2,
+    private el: ElementRef
+  ) {}
 
   @Input() set data(value: any[]) {
     this.rowData = value;
@@ -34,8 +43,18 @@ export class TableComponent implements OnInit {
 
   @Input() set clickedData(value: any[]) {
     const hyphen = new RegExp('-');
+    
+    const nameElement = this.el.nativeElement.querySelector('.clicked-data-name');
+    if (nameElement) {
+      this.renderer.setProperty(nameElement, 'innerHTML', '');
+    }
+
     if (value.length > 0) {
       const { name } = value[0];
+      if (nameElement) {
+        this.renderer.setProperty(nameElement, 'innerHTML', `Data of students:  ${name}`);
+      }
+
       if (name === 'Male' || name === 'Female' || name === 'Others' || name === 'Prefer not to say') {
         this.filteredRowData = this.rowData.filter(student => student.gender === name);
       } else if (hyphen.test(name)) {
@@ -45,6 +64,7 @@ export class TableComponent implements OnInit {
     } else {
       this.filteredRowData = this.rowData;
     }
+
     if (this.gridApi) {
       this.gridApi.setRowData(this.filteredRowData);
     }
@@ -79,8 +99,6 @@ export class TableComponent implements OnInit {
     },
   ];
 
-  constructor(private studentsService: Students, private resolver: ComponentFactoryResolver, private vcr: ViewContainerRef) {}
-
   ngOnInit(): void {
     this.studentsService.currentStudents.subscribe(data => {
       this.rowData = data;
@@ -94,6 +112,23 @@ export class TableComponent implements OnInit {
   refreshData(): void {
     this.studentsService.fetchData(); 
   }
+  
+  resetData(): void {
+    const storedData = JSON.parse(localStorage.getItem('studentsData') || '[]');
+    this.rowData = storedData;
+    this.filteredRowData = storedData;
+    if (this.gridApi) {
+      this.gridApi.setRowData(this.filteredRowData); 
+    }
+  }
+  
+  
+  onRowSelected(event: RowSelectedEvent): void {
+    if (event.node.isSelected()) {
+      this.selectedRowData = event.data; 
+      console.log('Selected Row Data: ', this.selectedRowData);
+    }
+  }
 
   deleteStudent(id: any): void {
     const currentStudents = JSON.parse(localStorage.getItem('studentsData') || '[]');
@@ -104,10 +139,6 @@ export class TableComponent implements OnInit {
       this.gridApi.setRowData(this.rowData); 
     }
   }
-
-  // editStudent(id: any): void {
-  //   console.log
-  // }
 
   applyFilter(event: Event): void {
     const input = event.target as HTMLInputElement;

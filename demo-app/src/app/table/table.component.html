@@ -4,6 +4,9 @@
     <en-button class="refresh" size="md" (click)="refreshData()">
       <en-icon-refresh></en-icon-refresh>
     </en-button>
+    <en-button class="reset" style="width: 10px" (click)="resetData()">
+      <en-icon-reset></en-icon-reset>
+    </en-button>
     <select id="pageSize" (change)="onPageSizeChange($event)">
       <option *ngFor="let size of paginationPageSizeSelector" [value]="size">
         {{ size }}
