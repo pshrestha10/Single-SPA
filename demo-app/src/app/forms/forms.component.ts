@@ -42,19 +42,6 @@ export class FormsComponent {
       this.additionForm.patchValue(this.initialData);
     }
   }
-
-  private generateUniqueId(): number {
-    const currentStudents = JSON.parse(localStorage.getItem('studentsData') || '[]');
-    const existingIds = currentStudents.map((student: any) => student.id);
-
-    if (existingIds.length === 0) {
-      return 1;
-    }
-
-    const maxId = Math.max(...existingIds);
-    return maxId + 1;
-  }
-
   onSubmit(): void {
     if (this.additionForm.valid) {
       const formValue = this.additionForm.value;
