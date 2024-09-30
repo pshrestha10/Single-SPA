@@ -60,9 +60,12 @@ export class TableComponent implements OnInit {
     { field: 'phone', headerName: 'Phone', flex: 1 },
     {
       headerName: 'Actions',
-      flex: 1,
+      flex: 2,
       cellRenderer: (params: any) => {
         const container = document.createElement('div');
+        container.style.display = 'flex'; 
+        container.style.alignItems = 'center'; 
+        container.style.gap = '10px'; 
         const factory = this.resolver.resolveComponentFactory(EditComponent);
         const componentRef = this.vcr.createComponent(factory);
         componentRef.instance.studentData = params.data.id;

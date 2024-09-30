@@ -98,6 +98,9 @@
       "@en-progress": [
         "node_modules/en-web-components/dist/en/components/progress/progress"
       ],
+      "@en-product-logo": [
+        "node_modules/en-web-components/dist/en/components/product-logo/product-logo"
+      ],
       "@en-textarea": [
         "node_modules/en-web-components/dist/en/components/textarea/textarea"
       ],

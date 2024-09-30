@@ -6,20 +6,20 @@ en-layout-container{
   background-color: #2a2a3d;
 }
 .dummy-div{
-  height: 70vh;
+  height: 60vh;
 }
 .navigation{
   position: fixed;
+  top: 5rem;
 }
 .header {
   position: fixed;
   top: 0;
-  left: 320px;
-  right: 10px;
+  left: 0;
+  right: 0px;
   background-color: #2d2f3e; 
   z-index: 1000; 
-  border-radius: 5%;
-
+  padding-bottom: 20px;
 }
 
 // ::ng-deep

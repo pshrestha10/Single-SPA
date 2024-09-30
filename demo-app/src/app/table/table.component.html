@@ -1,7 +1,7 @@
 <div class="container">
   <div class="dialog-container">
     <demo-app-dialog></demo-app-dialog>
-    <en-button class="refresh" size="md" (click)="refreshData()">
+    <en-button class="refresh" style="width: 10px;" (click)="refreshData()">
       <en-icon-refresh></en-icon-refresh>
     </en-button>
     <select id="pageSize" (change)="onPageSizeChange($event)">
@@ -31,28 +31,5 @@
     >
     </ag-grid-angular>
   </div>
-  <!-- <en-dropdown-button data-testid="dropdown-button" label="Label">
-    <en-icon-done-circle slot="before-icon" size="lg"></en-icon-done-circle>
-    <en-list>
-      <en-list-item listitemtype="action">Action 1</en-list-item>
-      <en-list-item listitemtype="action">Action 2</en-list-item>
-      <en-list-item listitemtype="action">Action 3</en-list-item>
-    </en-list>
-  </en-dropdown-button> -->
-  <!-- <h3>Filtered Data</h3>
-  <div class="table-container">
-    <ag-grid-angular
-      style="width: 100%; height: 200px"
-      class="ag-theme-alpine-dark"
-      [columnDefs]="columnDefs"
-      [rowData]="filteredRowData"
-      (gridReady)="onGridReady($event)"
-      [pagination]="true"
-      [paginationPageSize]="paginationPageSize"
-      [paginationPageSizeSelector]="paginationPageSizeSelector"
-      [paginationNumberFormatter]="paginationNumberFormatter"
-    >
-    </ag-grid-angular>
-  </div> -->
 </div>
 <demo-app-editdialog [initialData]="rowData"></demo-app-editdialog>
