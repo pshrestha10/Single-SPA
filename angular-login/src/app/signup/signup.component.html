@@ -11,7 +11,7 @@
 >
   <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
     <en-heading tagname="h1">Signup</en-heading>
-    
+
     <en-text-field
       ngDefaultControl
       formControlName="name"
@@ -21,10 +21,13 @@
       isRequired="true"
       class="name"
     ></en-text-field>
-    <div *ngIf="signupForm.get('name')?.invalid && signupForm.get('name')?.touched" style="color: rgb(251, 134, 134);">
-      <small>Name is required.</small> 
+    <div
+      *ngIf="signupForm.get('name')?.invalid && signupForm.get('name')?.touched"
+      style="color: rgb(251, 134, 134)"
+    >
+      <small>Name is required.</small>
     </div>
-    
+
     <en-text-field
       ngDefaultControl
       formControlName="email"
@@ -33,25 +36,35 @@
       type="email"
       isRequired="true"
     ></en-text-field>
-    <div *ngIf="signupForm.get('email')?.invalid && signupForm.get('email')?.touched" style="color: rgb(251, 134, 134);">
+    <div
+      *ngIf="
+        signupForm.get('email')?.invalid && signupForm.get('email')?.touched
+      "
+      style="color: rgb(251, 134, 134)"
+    >
       <small>Valid email is required.</small>
     </div>
-    <div *ngIf="emailExists" style="color: rgb(251, 134, 134);">
+    <div *ngIf="emailExists" style="color: rgb(251, 134, 134)">
       <small>Email already exists. Please choose another.</small>
     </div>
-    
+
     <en-text-field
       ngDefaultControl
       formControlName="number"
       variant="secondary"
       label="Phone number"
-      type="number"
+      type="tel"
       isRequired="true"
     ></en-text-field>
-    <div *ngIf="signupForm.get('number')?.invalid && signupForm.get('number')?.touched" style="color: rgb(251, 134, 134);">
-      <small>Phone number is required.</small> 
+    <div
+      *ngIf="
+        signupForm.get('number')?.invalid && signupForm.get('number')?.touched
+      "
+      style="color: rgb(251, 134, 134)"
+    >
+      <small>Phone number is required.</small>
     </div>
-    
+
     <en-text-field
       ngDefaultControl
       formControlName="password"
@@ -60,10 +73,16 @@
       type="password"
       isRequired="true"
     ></en-text-field>
-    <div *ngIf="signupForm.get('password')?.invalid && signupForm.get('password')?.touched" style="color: rgb(251, 134, 134);">
-      <small>Password is required (minimum 6 characters).</small> 
+    <div
+      *ngIf="
+        signupForm.get('password')?.invalid &&
+        signupForm.get('password')?.touched
+      "
+      style="color: rgb(251, 134, 134)"
+    >
+      <small>Password is required (minimum 6 characters).</small>
     </div>
-    
+
     <en-text-field
       ngDefaultControl
       variant="secondary"
@@ -72,10 +91,13 @@
       type="password"
       isRequired="true"
     ></en-text-field>
-    <div *ngIf="signupForm.errors?.['mismatch'] && (signupForm.get('confirmPassword')?.touched || signupForm.get('password')?.touched)" style="color: rgb(251, 134, 134);">
+    <div
+      *ngIf="signupForm.errors?.['mismatch'] && (signupForm.get('confirmPassword')?.touched || signupForm.get('password')?.touched)"
+      style="color: rgb(251, 134, 134)"
+    >
       <small>Passwords do not match.</small>
-    </div> 
-    
+    </div>
+
     <select formControlName="security">
       <option value="" disabled selected>Select a security question</option>
       <option value="First pet's name">First pet's name</option>
@@ -92,14 +114,19 @@
       type="password"
       isRequired="true"
     ></en-text-field>
-    <div *ngIf="signupForm.get('answer')?.invalid && signupForm.get('answer')?.touched" style="color: rgb(251, 134, 134);">
-      <small>Answer is required (minimum 6 characters).</small> 
+    <div
+      *ngIf="
+        signupForm.get('answer')?.invalid && signupForm.get('answer')?.touched
+      "
+      style="color: rgb(251, 134, 134)"
+    >
+      <small>Answer is required (minimum 6 characters).</small>
     </div>
-    
+
     <div style="margin-top: 8px">
       <en-button type="submit">Sign up</en-button>
     </div>
-    
+
     <div style="font-size: 12px">
       Already a user?
       <en-link data-testid="link" [routerLink]="['/login']" variant="xs">
