@@ -5,8 +5,8 @@
   height="80vh"
   style="z-index: 9999; display: block;"
 >
-  <en-button slot="trigger"><en-icon-edit size="sm"></en-icon-edit></en-button>
+  <en-button slot="trigger" [isDisabled]="!studentData"><en-icon-edit size="sm"></en-icon-edit></en-button>
   <div class="dialog-content">
-    <demo-app-forms ></demo-app-forms>
+    <demo-app-forms [initialData]="studentData"></demo-app-forms>
   </div>
 </en-dialog>

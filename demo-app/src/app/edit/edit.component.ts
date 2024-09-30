@@ -12,7 +12,9 @@ import { FormsComponent } from '../forms/forms.component';
 })
 export class EditComponent {
   @Input() studentData: any;
-  ngOnInit() {
-    console.log('Received student data:', this.studentData);
+  ngOnChanges() {
+    if (this.studentData) {
+      console.log('Selected Student Data:', this.studentData);
+    }
   }
 }

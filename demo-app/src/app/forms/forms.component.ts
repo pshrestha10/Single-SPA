@@ -1,4 +1,4 @@
-import { Component, CUSTOM_ELEMENTS_SCHEMA, Input, EventEmitter, Output} from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, Input, EventEmitter, Output, SimpleChanges} from '@angular/core';
 import { FormGroup, Validators, ReactiveFormsModule, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import '@en-text-field';
@@ -33,10 +33,16 @@ export class FormsComponent {
     });
   }
 
-  ngOnInit(): void {
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['initialData'] && this.initialData) {
+      this.patchFormWithInitialData();
+    }
+  }
+
+  patchFormWithInitialData(): void {
     if (this.initialData) {
       const address = this.initialData.address;
-      const addr = address.street + " " + address.city + " " + address.zip + " " + address.country;
+      const addr = address.street + ' ' + address.city + ' ' + address.zip + ' ' + address.country;
       if (address && typeof address === 'object') {
         this.initialData.address = addr;
       }

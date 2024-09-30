@@ -1,4 +1,4 @@
-import { Component, CUSTOM_ELEMENTS_SCHEMA, Input, OnInit, ViewContainerRef, ComponentFactoryResolver, Renderer2, ElementRef } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, Input, OnInit, ElementRef, Renderer2, ChangeDetectorRef } from '@angular/core';
 import { AgGridModule } from 'ag-grid-angular';
 import { Students } from '../students.services';
 import { DialogComponent } from '../dialog/dialog.component';
@@ -64,7 +64,7 @@ export class TableComponent implements OnInit {
   }
 
   columnDefs = [
-    { headerCheckboxSelection: false, checkboxSelection: true },
+    { headerCheckboxSelection: false, checkboxSelection: true, flex: 1 },
     { headerName: 'S N', valueGetter: 'node.rowIndex + 1', flex: 1 },
     { field: 'id', headerName: 'ID', flex: 1 },
     { field: 'name', headerName: 'Name', flex: 2 },
@@ -74,7 +74,7 @@ export class TableComponent implements OnInit {
     { field: 'phone', headerName: 'Phone', flex: 2 },
   ];
 
-  constructor(private studentsService: Students, private renderer: Renderer2, private el: ElementRef) {}
+  constructor(private studentsService: Students, private renderer: Renderer2, private el: ElementRef, private cdr: ChangeDetectorRef) {}
 
   ngOnInit(): void {
     this.studentsService.currentStudents.subscribe(data => {
@@ -101,19 +101,25 @@ export class TableComponent implements OnInit {
     
   onRowSelected(event: RowSelectedEvent): void {
     if (event.node.isSelected()) {
-      this.selectedRowData = event.data; 
-      console.log('Selected Row Data: ', this.selectedRowData);
+      this.selectedRowData = { ...event.data };
+      this.cdr.detectChanges();
+    } else {
+      this.selectedRowData = null;
+      this.cdr.detectChanges();
     }
   }
 
   deleteStudent(id: any): void {
+    if (id === null || id === undefined) return;
     const currentStudents = JSON.parse(localStorage.getItem('studentsData') || '[]');
     const updatedStudents = currentStudents.filter((student: any) => student.id !== id);
     localStorage.setItem('studentsData', JSON.stringify(updatedStudents));
     this.rowData = updatedStudents;
+    this.filteredRowData = updatedStudents;
     if (this.gridApi) {
-      this.gridApi.setRowData(this.rowData);
+      this.gridApi.setRowData(this.filteredRowData);
     }
+    this.selectedRowData = null;
   }
 
   applyFilter(event: Event): void {
@@ -125,7 +131,6 @@ export class TableComponent implements OnInit {
   onGridReady(params: any): void {
     this.gridApi = params.api;
     this.gridApi.setRowData(this.rowData);
-    this.gridApi.onRowSelected(this.onRowSelected.bind(this));
   }
 
   onPageSizeChange(event: Event): void {

@@ -10,11 +10,11 @@
     <en-button
       class="delete"
       (click)="deleteStudent(selectedRowData?.id)"
-      [disabled]="!selectedRowData"
+      [isDisabled]="!selectedRowData"
     >
       <en-icon-delete></en-icon-delete>
     </en-button>
-    <demo-app-edit></demo-app-edit>
+    <demo-app-edit [studentData]="selectedRowData"></demo-app-edit>
     <en-search-form
       variant="primary"
       label="Search"
@@ -32,6 +32,7 @@
       [pagination]="true"
       [rowData]="rowData"
       (gridReady)="onGridReady($event)"
+      (rowSelected)="onRowSelected($event)"
       [rowSelection]="'single'"
     ></ag-grid-angular>
   </div>
