@@ -1,4 +1,4 @@
-import { Component, CUSTOM_ELEMENTS_SCHEMA, Input } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, Input, EventEmitter, Output} from '@angular/core';
 import { FormGroup, Validators, ReactiveFormsModule, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import '@en-text-field';
@@ -14,12 +14,13 @@ import { CommonModule } from '@angular/common';
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class FormsComponent {
-  additionForm: FormGroup;
+  @Output() formSubmit = new EventEmitter<void>();
   @Input() initialData: any;
+
+  additionForm: FormGroup;
 
   constructor(private studentsService: Students, private router: Router) {
     this.additionForm = new FormGroup({
-      // id: new FormControl('', [Validators.required , Validators.pattern('^[0-9]*$')]),
       name: new FormControl('', [Validators.required, Validators.pattern('^[A-Za-z]*([ ]+[A-Za-z]*)*$'), Validators.minLength(3)]),
       gender: new FormControl(''),
       age: new FormControl('', [Validators.required, Validators.min(16), Validators.max(25)]),
@@ -45,12 +46,10 @@ export class FormsComponent {
   onSubmit(): void {
     if (this.additionForm.valid) {
       const formValue = this.additionForm.value;
-      this.studentsService.addStudent(formValue); 
-      console.log('Form submitted:', formValue);
-      window.location.reload();
+      this.studentsService.addStudent(formValue);
+      this.formSubmit.emit();
     } else {
       this.additionForm.markAllAsTouched();
-      console.log('Form submitted:', this.additionForm.valid);
     }
   }
 }

@@ -22,12 +22,13 @@
       isRequired="true"
     ></en-text-field>
     
-    <div *ngIf="errorMessage" style="color: red; margin-top: 8px;">
+    <div *ngIf="errorMessage" style="color: rgb(252, 98, 98); margin-top: 8px;">
       <small>{{ errorMessage }}</small>
     </div>
 
     <div style="margin-top: 8px">
       <en-button type="submit" [disabled]="securityForm.invalid">Reset Password</en-button>
     </div>
+    <en-link data-testid="link" [routerLink]="['/login']" variant="xs">Login<en-icon-chevron-right></en-icon-chevron-right></en-link>
   </form>
 </div>

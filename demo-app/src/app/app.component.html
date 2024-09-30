@@ -1,21 +1,19 @@
-<div class="header"><en-layout-container>Student Details </en-layout-container></div>
+<div class="header">
+  <en-product-logo data-testid="product-logo" product="ec" width="50" height="50"></en-product-logo> 
+</div>
 <nav class="navigation">
-  <en-navigation-menu
-    data-testid="navigation-menu"
-    isActive="true"
-  >
-    <en-menu-item routerLink="dashboard"
-      ><en-icon-chart></en-icon-chart> Dashboard
+  <en-navigation-menu data-testid="navigation-menu" isActive="true">
+    <en-menu-item routerLink="dashboard" routerLinkActive="active" class="active">
+      <en-icon-chart></en-icon-chart> Dashboard
     </en-menu-item>
-    <en-menu-item routerLink="students-table"
-      ><en-icon-table></en-icon-table> Student Table
+    <en-menu-item routerLink="students-table" routerLinkActive="active">
+      <en-icon-table></en-icon-table> Student Table
     </en-menu-item>
-    <en-menu-item class="Logout" (click)="navigateToLogin()"
-      ><en-icon-sign-out></en-icon-sign-out>Logout</en-menu-item
-    >
+    <en-menu-item class="Logout" (click)="navigateToLogin()">
+      <en-icon-sign-out></en-icon-sign-out> Logout
+    </en-menu-item>
     <div class="dummy-div"></div>
   </en-navigation-menu>
 </nav>
 
-<router-outlet> </router-outlet>
-   
+<router-outlet></router-outlet>

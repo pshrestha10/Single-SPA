@@ -2,13 +2,15 @@ import { Component, CUSTOM_ELEMENTS_SCHEMA, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'angular-login-security',
   templateUrl: './security.component.html',
   styleUrls: ['./security.component.scss'],
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, RouterModule],
+
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class SecurityComponent implements OnInit {
