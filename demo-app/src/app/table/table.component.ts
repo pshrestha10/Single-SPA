@@ -2,7 +2,7 @@ import { Component, CUSTOM_ELEMENTS_SCHEMA, Input, OnInit, ViewContainerRef, Com
 import { AgGridModule } from 'ag-grid-angular';
 import { Students } from '../students.services';
 import { DialogComponent } from '../dialog/dialog.component';
-import { PaginationNumberFormatterParams, RowSelectedEvent, RowNode } from 'ag-grid-community';
+import { PaginationNumberFormatterParams, RowSelectedEvent } from 'ag-grid-community';
 import { CommonModule } from '@angular/common';
 import { EditComponent } from '../edit/edit.component';
 
@@ -19,7 +19,6 @@ export class TableComponent implements OnInit {
   pagination = true;
   paginationPageSize = 10;
   paginationSizeSelector = [10, 20, 40];
-  rowSelection= 'single' ;
   rowData: any[] = [];
   filteredRowData: any[] = [];
   selectedRowData: any = null;
@@ -49,11 +48,11 @@ export class TableComponent implements OnInit {
         this.renderer.setProperty(nameElement, 'innerHTML', `Data of students:  ${name}`);
       }
 
-      if (name === 'Male' || name === 'Female' || name === 'Others' || name === 'Prefer not to say') {
+      if (['Male', 'Female', 'Others', 'Prefer not to say'].includes(name)) {
         this.filteredRowData = this.rowData.filter(student => student.gender === name);
       } else if (hyphen.test(name)) {
-        const abc = this.parseRange(name);
-        this.filteredRowData = this.rowData.filter(student => student.gpa >= abc[0] && student.gpa < abc[1]);
+        const range = this.parseRange(name);
+        this.filteredRowData = this.rowData.filter(student => student.gpa >= range[0] && student.gpa < range[1]);
       }
     } else {
       this.filteredRowData = this.rowData;
@@ -65,6 +64,7 @@ export class TableComponent implements OnInit {
   }
 
   columnDefs = [
+    { headerCheckboxSelection: false, checkboxSelection: true },
     { headerName: 'S N', valueGetter: 'node.rowIndex + 1', flex: 1 },
     { field: 'id', headerName: 'ID', flex: 1 },
     { field: 'name', headerName: 'Name', flex: 2 },
@@ -74,7 +74,7 @@ export class TableComponent implements OnInit {
     { field: 'phone', headerName: 'Phone', flex: 2 },
   ];
 
-  constructor(private studentsService: Students,  private renderer: Renderer2,private el: ElementRef) {}
+  constructor(private studentsService: Students, private renderer: Renderer2, private el: ElementRef) {}
 
   ngOnInit(): void {
     this.studentsService.currentStudents.subscribe(data => {
@@ -125,11 +125,7 @@ export class TableComponent implements OnInit {
   onGridReady(params: any): void {
     this.gridApi = params.api;
     this.gridApi.setRowData(this.rowData);
-  }
-
-  onSelectionChanged(): void {
-    const selectedRows = this.gridApi.getSelectedRows();
-    console.log('Selected Rows:', selectedRows); 
+    this.gridApi.onRowSelected(this.onRowSelected.bind(this));
   }
 
   onPageSizeChange(event: Event): void {

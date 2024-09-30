@@ -10,29 +10,40 @@
   "
 >
   <form [formGroup]="additionForm" (ngSubmit)="onSubmit()" novalidate>
-      <en-text-field
-        variant="secondary"
-        label="Name"
-        formControlName="name"
-        type="text"
-        placeholder="Name"
-        isRequired="true"
-        ngDefaultControl
-      ></en-text-field>
-      <div *ngIf="additionForm.get('name')?.invalid && additionForm.get('name')?.touched">
-        <small style="color: rgb(251, 134, 134);">Name is required and should contain only letters.</small>
-      </div>
-      
-      <select formControlName="gender">
-        <option value="" disabled selected>Gender</option>
-        <option value="Male">Male</option>
-        <option value="Female">Female</option>
-        <option value="Others">Others</option>
-        <option value="Prefer not to say">Prefer not to say</option>
-      </select>
-      <div *ngIf="additionForm.get('gender')?.invalid && additionForm.get('gender')?.touched">
-        <small style="color: rgb(251, 134, 134);">Gender is required.</small>
-      </div>
+    <en-text-field
+      variant="secondary"
+      label="Name"
+      formControlName="name"
+      type="text"
+      placeholder="Name"
+      isRequired="true"
+      ngDefaultControl
+    ></en-text-field>
+    <div
+      *ngIf="
+        additionForm.get('name')?.invalid && additionForm.get('name')?.touched
+      "
+    >
+      <small style="color: rgb(251, 134, 134)"
+        >Name is required and should contain only letters.</small
+      >
+    </div>
+
+    <select formControlName="gender">
+      <option value="" disabled selected>Gender</option>
+      <option value="Male">Male</option>
+      <option value="Female">Female</option>
+      <option value="Others">Others</option>
+      <option value="Prefer not to say">Prefer not to say</option>
+    </select>
+    <div
+      *ngIf="
+        additionForm.get('gender')?.invalid &&
+        additionForm.get('gender')?.touched
+      "
+    >
+      <small style="color: rgb(251, 134, 134)">Gender is required.</small>
+    </div>
 
     <en-text-field
       variant="secondary"
@@ -155,9 +166,6 @@
 
     <div class="form-actions">
       <en-button type="submit">Submit</en-button>
-      <en-button data-testid="reset" type="reset" variant="secondary"
-        >Reset</en-button
-      >
       <en-button data-testid="reset" type="reset" variant="secondary"
         >Reset</en-button
       >
