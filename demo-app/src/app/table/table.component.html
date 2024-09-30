@@ -1,17 +1,16 @@
 <div class="container">
   <div class="dialog-container">
     <demo-app-dialog></demo-app-dialog>
-    <en-button class="refresh" style="width: 10px;" (click)="refreshData()">
+    <en-button class="refresh" (click)="refreshData()">
       <en-icon-refresh></en-icon-refresh>
     </en-button>
-    <en-button class="reset" style="width: 10px" (click)="resetData()">
+    <en-button class="reset" (click)="resetData()">
       <en-icon-reset></en-icon-reset>
     </en-button>
-    <select id="pageSize" (change)="onPageSizeChange($event)">
-      <option *ngFor="let size of paginationPageSizeSelector" [value]="size">
-        {{ size }}
-      </option>
-    </select>
+    <en-button class="delete" (click)="refreshData()">
+      <en-icon-delete></en-icon-delete>
+    </en-button>
+    <demo-app-edit></demo-app-edit>
     <en-search-form
       variant="primary"
       label="Search"
@@ -22,17 +21,13 @@
 
   <div class="table-container">
     <ag-grid-angular
-      style="width: 100%; height: 200px"
+      style="width: 100%; height: 100%;"
       class="ag-theme-alpine-dark"
       [columnDefs]="columnDefs"
-      [rowData]="filteredRowData.length > 0 ? clickedData : filteredRowData"
-      (gridReady)="onGridReady($event)"
+      [paginationAutoPageSize]="true"
       [pagination]="true"
-      [paginationPageSize]="paginationPageSize"
-      [paginationPageSizeSelector]="paginationPageSizeSelector"
-      [paginationNumberFormatter]="paginationNumberFormatter"
-    >
-    </ag-grid-angular>
+      [rowData]="rowData"
+      (gridReady)="onGridReady($event)"
+    /> 
   </div>
 </div>
-<demo-app-editdialog [initialData]="rowData"></demo-app-editdialog>

@@ -1,4 +1,4 @@
-import { Component, CUSTOM_ELEMENTS_SCHEMA, Input, OnInit, ViewChild, ViewContainerRef, ComponentFactoryResolver, ElementRef, Renderer2 } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, Input, OnInit, ViewContainerRef, ComponentFactoryResolver, Renderer2, ElementRef } from '@angular/core';
 import { AgGridModule } from 'ag-grid-angular';
 import { Students } from '../students.services';
 import { DialogComponent } from '../dialog/dialog.component';
@@ -16,23 +16,17 @@ import { EditComponent } from '../edit/edit.component';
 })
 export class TableComponent implements OnInit {
   private gridApi: any;
-  public paginationPageSize = 10;
-  public paginationPageSizeSelector: number[] = [10, 20, 40];
+  pagination = true;
+  paginationPageSize = 10;
+  paginationSizeSelector = [10, 20, 40];
+  rowSelection= 'single' ;
+  rowData: any[] = [];
+  filteredRowData: any[] = [];
+  selectedRowData: any = null;
+
   public paginationNumberFormatter: (params: PaginationNumberFormatterParams) => string = (params: PaginationNumberFormatterParams) => {
     return params.value.toLocaleString();
   };
-
-  rowData: any[] = [];
-  filteredRowData: any[] = [];
-  selectedRowData: any = null; // Store selected row data
- 
-  constructor(
-    private studentsService: Students, 
-    private resolver: ComponentFactoryResolver, 
-    private vcr: ViewContainerRef,
-    private renderer: Renderer2,
-    private el: ElementRef
-  ) {}
 
   @Input() set data(value: any[]) {
     this.rowData = value;
@@ -77,40 +71,23 @@ export class TableComponent implements OnInit {
     { field: 'gpa', headerName: 'GPA', flex: 1, sortable: true },
     { field: 'gender', headerName: 'Gender', flex: 1 },
     { field: 'email', headerName: 'Email', flex: 2 },
-    { field: 'phone', headerName: 'Phone', flex: 1 },
-    {
-      headerName: 'Actions',
-      flex: 2,
-      cellRenderer: (params: any) => {
-        const container = document.createElement('div');
-        const factory = this.resolver.resolveComponentFactory(EditComponent);
-        const componentRef = this.vcr.createComponent(factory);
-        componentRef.instance.studentData = params.data.id;
-        container.appendChild(componentRef.location.nativeElement);
-        
-        const deleteButton = document.createElement('en-button');
-        deleteButton.innerHTML = `<en-icon-delete></en-icon-delete>`;
-        deleteButton.className = 'delete-btn';
-        deleteButton.onclick = () => this.deleteStudent(params.data.id);
-        container.appendChild(deleteButton);
-
-        return container;
-      },
-    },
+    { field: 'phone', headerName: 'Phone', flex: 2 },
   ];
+
+  constructor(private studentsService: Students,  private renderer: Renderer2,private el: ElementRef) {}
 
   ngOnInit(): void {
     this.studentsService.currentStudents.subscribe(data => {
       this.rowData = data;
-      this.filteredRowData = data; 
+      this.filteredRowData = data;
       if (this.gridApi) {
-        this.gridApi.setRowData(this.filteredRowData); 
+        this.gridApi.setRowData(this.filteredRowData);
       }
     });
   }
 
   refreshData(): void {
-    this.studentsService.fetchData(); 
+    this.studentsService.fetchData();
   }
   
   resetData(): void {
@@ -121,8 +98,7 @@ export class TableComponent implements OnInit {
       this.gridApi.setRowData(this.filteredRowData); 
     }
   }
-  
-  
+    
   onRowSelected(event: RowSelectedEvent): void {
     if (event.node.isSelected()) {
       this.selectedRowData = event.data; 
@@ -136,19 +112,24 @@ export class TableComponent implements OnInit {
     localStorage.setItem('studentsData', JSON.stringify(updatedStudents));
     this.rowData = updatedStudents;
     if (this.gridApi) {
-      this.gridApi.setRowData(this.rowData); 
+      this.gridApi.setRowData(this.rowData);
     }
   }
 
   applyFilter(event: Event): void {
     const input = event.target as HTMLInputElement;
     const filterValue = input.value.trim().toLowerCase();
-    this.gridApi.setQuickFilter(filterValue); 
+    this.gridApi.setQuickFilter(filterValue);
   }
 
   onGridReady(params: any): void {
     this.gridApi = params.api;
-    this.gridApi.setRowData(this.rowData); 
+    this.gridApi.setRowData(this.rowData);
+  }
+
+  onSelectionChanged(): void {
+    const selectedRows = this.gridApi.getSelectedRows();
+    console.log('Selected Rows:', selectedRows); 
   }
 
   onPageSizeChange(event: Event): void {

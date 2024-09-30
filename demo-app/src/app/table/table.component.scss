@@ -42,12 +42,11 @@ ag-grid-angular {
 
 en-search-form {
   background: var(--en-theme-color-background-surface-elevation-1);
-  margin-left: 50rem;
+  margin-left: 35rem;
 }
 
 .refresh {
   margin-left: 1rem;
-  width: 10px;
 }
 
 #pageSize {
@@ -57,25 +56,12 @@ en-search-form {
   color: black;
   border: none;
 }
-
-.edit-btn{
-  padding: 4px 6px;
-  font-size: 12px;
-  height: auto;
-  border-radius: 4px;
-  border: 1px solid transparent;
-  cursor: pointer;
-  margin: 0 2px;
-}
-
-.en-c-button{
-  width:10px;
-}
-// ::ng-deep en-icon-reset{
-//   margin-left: 20px;
-  
-// }
-
 .reset{
-  margin-left:50px;
+  margin-left:1rem;
+}
+.delete{
+  margin-left: 1rem;
+}
+demo-app-edit{
+  margin-left: 1rem;
 }
