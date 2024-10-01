@@ -1,4 +1,4 @@
-import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, Input } from '@angular/core';
 import { FormsComponent } from "../forms/forms.component";
 
 @Component({
@@ -11,5 +11,21 @@ import { FormsComponent } from "../forms/forms.component";
 
 })
 export class DialogComponent {
+  isActive = false;
+  @Input() studentData: any;
 
+  ngOnChanges() {
+    if (this.studentData) {
+      console.log('Selected Student Data:', this.studentData);
+    }
+  }
+  onFormSubmit(success: boolean): void {
+    if (success) {
+      this.isActive = false;
+      console.log('this.isActive');
+    }
+  }
+  toggleActive(): void {
+    this.isActive = true;
+  }
 }

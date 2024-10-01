@@ -147,4 +147,12 @@ export class TableComponent implements OnInit {
     const max = parseFloat(maxString);
     return [min, max];
   }
+  reloadTableData(): void {
+    const storedData = JSON.parse(localStorage.getItem('studentsData') || '[]');
+    this.rowData = storedData;
+    this.filteredRowData = storedData;
+    if (this.gridApi) {
+      this.gridApi.setRowData(this.filteredRowData);
+    }
+  }
 }

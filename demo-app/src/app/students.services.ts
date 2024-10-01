@@ -46,4 +46,14 @@ export class Students {
     this.studentsData.next([newStudent, ...currentStudents]);
     localStorage.setItem('studentsData', JSON.stringify(this.studentsData.value));
   }
+  updateStudent(updatedStudent: any): void {
+    const currentStudents = JSON.parse(localStorage.getItem('studentsData') || '[]');
+    const studentIndex = currentStudents.findIndex((student: any) => student.id === updatedStudent.id);
+    console.log(studentIndex)
+    if (studentIndex > -1) {
+      currentStudents[studentIndex] = updatedStudent;
+    }
+    localStorage.setItem('studentsData', JSON.stringify(currentStudents));
+  }
+  
 }

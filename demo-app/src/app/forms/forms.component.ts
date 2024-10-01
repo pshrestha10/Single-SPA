@@ -14,14 +14,13 @@ import { CommonModule } from '@angular/common';
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class FormsComponent {
-  @Output() formSubmit = new EventEmitter<void>();
+  @Output() formSubmit = new EventEmitter<boolean>();
   @Input() initialData: any;
 
   additionForm: FormGroup;
 
   constructor(private studentsService: Students, private router: Router) {
     this.additionForm = new FormGroup({
-      // id: new FormControl('', [Validators.required , Validators.pattern('^[0-9]*$')]),
       name: new FormControl('', [Validators.required, Validators.pattern('^[A-Za-z]*([ ]+[A-Za-z]*)*$'), Validators.minLength(3)]),
       gender: new FormControl(''),
       age: new FormControl('', [Validators.required, Validators.min(16), Validators.max(25)]),
@@ -49,13 +48,20 @@ export class FormsComponent {
       this.additionForm.patchValue(this.initialData);
     }
   }
+
   onSubmit(): void {
     if (this.additionForm.valid) {
       const formValue = this.additionForm.value;
-      this.studentsService.addStudent(formValue);
-      this.formSubmit.emit();
+      if (this.initialData?.id) {
+        formValue.id = this.initialData.id; 
+        this.studentsService.updateStudent(formValue); 
+      } else {
+        this.studentsService.addStudent(formValue); 
+      }
+      this.formSubmit.emit(true);
     } else {
       this.additionForm.markAllAsTouched();
+      this.formSubmit.emit(true);
     }
   }
 }

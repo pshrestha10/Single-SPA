@@ -11,10 +11,21 @@ import { FormsComponent } from '../forms/forms.component';
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class EditComponent {
+  isActive = false;
   @Input() studentData: any;
+
   ngOnChanges() {
     if (this.studentData) {
       console.log('Selected Student Data:', this.studentData);
     }
+  }
+  onFormSubmit(success: boolean): void {
+    if (success) {
+      this.isActive = false;
+      console.log('this.isActive');
+    }
+  }
+  toggleActive(): void {
+    this.isActive = true;
   }
 }

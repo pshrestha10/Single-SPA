@@ -14,7 +14,7 @@
     >
       <en-icon-delete></en-icon-delete>
     </en-button>
-    <demo-app-edit [studentData]="selectedRowData"></demo-app-edit>
+    <demo-app-edit [studentData]="selectedRowData" (formSubmit)="reloadTableData()"></demo-app-edit>
     <en-search-form
       variant="primary"
       label="Search"
