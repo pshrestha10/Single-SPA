@@ -72,6 +72,7 @@ import "@en-icons/refresh";
 import "@en-icons/table";
 import "@en-product-logo";
 import "@en-icons/reset";
+import { Students } from './students.services';
 
 @Component({
   selector: 'demo-app-root',
@@ -79,23 +80,30 @@ import "@en-icons/reset";
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements AfterContentChecked {
-  showSideBar = false;
+  showSideBar = true;
   constructor(
-    private cdref: ChangeDetectorRef
+    private cdref: ChangeDetectorRef,
+    private studentsService: Students
   ) {}
-  ngAfterContentChecked(): void {
+  ngAfterContentChecked(): void {}
+  ngOnInit(): void {
+    this.studentsService.showSideBarState.subscribe((value) => {
+      this.showSideBar = value;
+    });
   }
-  ngAfterViewInit(): void {}
-  ngOnInit(): void {}
-  onClick() {
-    alert('click');
+  onClick(): void {
+    this.showSideBar = !this.showSideBar;
+    console.log(this.showSideBar);
+    this.studentsService.setShowSideBarState(this.showSideBar);
+  }
+  navigateToLogin(): void {
+    window.dispatchEvent(
+      new CustomEvent('navigate-to', {
+        detail: {
+          path: '/login',
+        },
+      })
+    );
   }
   title = 'demo-app';
-  navigateToLogin() {
-    window.dispatchEvent(new CustomEvent('navigate-to', {
-      detail: {
-        path: '/login'
-      }
-    }));
-  }
 }

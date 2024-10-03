@@ -1,4 +1,4 @@
-<div class="chart-container">
+<div class="chart-container"  [class.sidebar-open]="showSideBar" [class.sidebar-closed]="!showSideBar">
   <div class="gpa-chart">
     <en-chart class="en-chart" [chartOptions]="gpaChartOptions"></en-chart>
   </div>

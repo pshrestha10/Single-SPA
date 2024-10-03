@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container"  [class.sidebar-open]="showSideBar" [class.sidebar-closed]="!showSideBar">
   <div class="dialog-container">
     <demo-app-dialog></demo-app-dialog>
     <en-button class="refresh" (click)="refreshData()">
@@ -10,7 +10,6 @@
     <en-button
       class="delete"
       (click)="deleteStudent(selectedRowData?.id)"
-      [isDisabled]="!selectedRowData"
     >
       <en-icon-delete></en-icon-delete>
     </en-button>

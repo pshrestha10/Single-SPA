@@ -2,7 +2,7 @@
   <en-product-logo data-testid="product-logo" product="ec" width="50" height="50"></en-product-logo> 
 </div>
 <nav class="navigation">
-  <en-navigation-menu data-testid="navigation-menu" isActive="true">
+  <en-navigation-menu data-testid="navigation-menu" isActive="showSideBar" (click)="onClick()">
     <en-menu-item routerLink="dashboard" routerLinkActive="active" class="active">
       <en-icon-chart></en-icon-chart> Dashboard
     </en-menu-item>

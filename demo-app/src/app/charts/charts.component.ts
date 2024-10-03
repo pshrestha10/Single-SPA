@@ -1,5 +1,6 @@
 import { Component, CUSTOM_ELEMENTS_SCHEMA, EventEmitter, Input, Output, OnInit } from '@angular/core';
 import { TableComponent } from "../table/table.component";
+import { Students } from '../students.services';
 
 interface ChartData {
   name: string;
@@ -22,7 +23,7 @@ interface GenderData {
 export class ChartsComponent implements OnInit {
   @Input() showChart: boolean = false;
   @Output() clickedDataEmitter = new EventEmitter<any[]>();
- 
+  @Input() showSideBar: boolean = true;
   columnChartData: number[] = [];
   clickedData: { name: string; y: number }[] = []; 
   genderChartOptions: any;
@@ -55,8 +56,13 @@ export class ChartsComponent implements OnInit {
     },
     series: [{ data: [] as ChartData[] }]
   };
+  constructor(private studentsService: Students) {};
 
   ngOnInit(): void {
+    this.studentsService.showSideBarState.subscribe((value) => {
+      this.showSideBar = value;
+      console.log(this.showSideBar);
+    });
     const storedData = localStorage.getItem('studentsData');
     if (storedData) {
       const students = JSON.parse(storedData);

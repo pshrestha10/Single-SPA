@@ -22,6 +22,7 @@ export class TableComponent implements OnInit {
   rowData: any[] = [];
   filteredRowData: any[] = [];
   selectedRowData: any = null;
+   @Input() showSideBar: boolean = true;
 
   public paginationNumberFormatter: (params: PaginationNumberFormatterParams) => string = (params: PaginationNumberFormatterParams) => {
     return params.value.toLocaleString();
@@ -75,8 +76,12 @@ export class TableComponent implements OnInit {
   ];
 
   constructor(private studentsService: Students, private renderer: Renderer2, private el: ElementRef, private cdr: ChangeDetectorRef) {}
-
+   
   ngOnInit(): void {
+    this.studentsService.showSideBarState.subscribe((value) => {
+      this.showSideBar = value;
+      console.log(this.showSideBar);
+    });
     this.studentsService.currentStudents.subscribe(data => {
       this.rowData = data;
       this.filteredRowData = data;
