@@ -93,7 +93,6 @@ export class AppComponent implements AfterContentChecked {
   }
   onClick(): void {
     this.showSideBar = !this.showSideBar;
-    console.log(this.showSideBar);
     this.studentsService.setShowSideBarState(this.showSideBar);
   }
   navigateToLogin(): void {

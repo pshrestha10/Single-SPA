@@ -80,7 +80,6 @@ export class TableComponent implements OnInit {
   ngOnInit(): void {
     this.studentsService.showSideBarState.subscribe((value) => {
       this.showSideBar = value;
-      console.log(this.showSideBar);
     });
     this.studentsService.currentStudents.subscribe(data => {
       this.rowData = data;

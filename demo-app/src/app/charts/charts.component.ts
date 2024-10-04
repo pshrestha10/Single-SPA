@@ -68,7 +68,11 @@ export class ChartsComponent implements OnInit {
       const students = JSON.parse(storedData);
       this.updateChartData(students);
       this.updateGenderChartData(students);
+      console.log(this.showSideBar);
     }
+  }
+  ngOnChange(): void{
+    console.log(this.showSideBar);
   }
 
   updateChartData(students: any[]): void {
