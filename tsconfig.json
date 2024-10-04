@@ -2,7 +2,9 @@
   "extends": "ts-config-single-spa",
   "files": ["src/test-app-root-config.ts"],
   "compilerOptions": {
-    "declarationDir": "dist"
+    "declarationDir": "dist",
+    "experimentalDecorators": true
+
   },
   "include": ["src/**/*"],
   "exclude": ["src/**/*.test*"]
