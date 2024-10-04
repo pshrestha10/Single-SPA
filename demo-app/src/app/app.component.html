@@ -1,19 +1,19 @@
 <div class="header">
   <en-product-logo data-testid="product-logo" product="ec" width="50" height="50"></en-product-logo> 
 </div>
-<nav class="navigation">
-  <en-navigation-menu data-testid="navigation-menu" isActive="showSideBar" (click)="onClick()">
-    <en-menu-item routerLink="dashboard" routerLinkActive="active" class="active">
-      <en-icon-chart></en-icon-chart> Dashboard
-    </en-menu-item>
-    <en-menu-item routerLink="students-table" routerLinkActive="active">
-      <en-icon-table></en-icon-table> Student Table
-    </en-menu-item>
-    <en-menu-item class="Logout" (click)="navigateToLogin()">
-      <en-icon-sign-out></en-icon-sign-out> Logout
-    </en-menu-item>
-    <div class="dummy-div"></div>
-  </en-navigation-menu>
-</nav>
 
+<demo-app-navigation [hidden]="!isLoggedIn"/>
+
+<div
+  class="container"
+  style="
+    background-color: var(--en-theme-color-background-surface-elevation-1);
+    width: 400px;
+    padding: 24px;
+  "
+  [hidden]="isLoggedIn"
+>
+  <en-heading tagname="h3">You are not logged in</en-heading>
+  <en-link (click)="navigateToLogin()">Login</en-link>
+</div>
 <router-outlet></router-outlet>

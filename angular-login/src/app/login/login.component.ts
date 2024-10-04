@@ -22,6 +22,7 @@ export class LoginComponent {
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]]
     });
+    localStorage.setItem('isLoggedIn', 'false');
   }
 
   onSubmit(): void {
@@ -33,6 +34,7 @@ export class LoginComponent {
       if (storedData.email === email) {
         if (storedData.password === password) {
           console.log('Login successful');
+          localStorage.setItem('isLoggedIn', 'true');
           this.router.navigate(['/']);
         } else {
           this.loginError = 'Wrong password';

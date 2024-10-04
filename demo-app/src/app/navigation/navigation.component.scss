@@ -1,18 +1,14 @@
-nav {
-    display: flex;
-    align-items: center;
-    en-navigation-menu {
-      display: flex;
-      align-items: center;
-      margin-right: 1rem;
-    }
-    en-icon-chart,
-    en-icon-add,
-    en-icon-refresh,
-    en-icon-search{
-      margin-left: 1rem;
-      color:white
-    }
-    
-  }
-  
+en-layout-container{
+  height:6rem;
+  text-align: center;
+  margin:2rem 2rem;
+  font-size: larger;
+  background-color: #2a2a3d;
+}
+.dummy-div{
+  height: 60vh;
+}
+.navigation{
+  position: fixed;
+  top: 5rem;
+}

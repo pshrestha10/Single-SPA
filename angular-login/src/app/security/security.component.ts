@@ -41,6 +41,7 @@ export class SecurityComponent implements OnInit {
       const parsedData = JSON.parse(signupData);
       const correctAnswer = parsedData.answer; 
       if (userInput === correctAnswer) {
+        localStorage.setItem('isLoggedIn','true');
         this.router.navigate(['/forgotpwd']);
       } else {
         this.errorMessage = 'Wrong answer. Please try again.';

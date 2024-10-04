@@ -1,6 +1,6 @@
 import {
   AfterContentChecked,
-  ChangeDetectorRef,
+  OnInit,
   Component,
 } from '@angular/core';
 import '@en-button';
@@ -80,21 +80,12 @@ import { Students } from './students.services';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements AfterContentChecked {
-  showSideBar = true;
-  constructor(
-    private cdref: ChangeDetectorRef,
-    private studentsService: Students
-  ) {}
   ngAfterContentChecked(): void {}
+  isLoggedIn =false;
   ngOnInit(): void {
-    this.studentsService.showSideBarState.subscribe((value) => {
-      this.showSideBar = value;
-    });
-  }
-  onClick(): void {
-    this.showSideBar = !this.showSideBar;
-    console.log(this.showSideBar);
-    this.studentsService.setShowSideBarState(this.showSideBar);
+    if (localStorage.getItem('isLoggedIn') === 'true') {
+      this.isLoggedIn = true;
+    }
   }
   navigateToLogin(): void {
     window.dispatchEvent(

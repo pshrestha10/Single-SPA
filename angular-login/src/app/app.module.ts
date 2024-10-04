@@ -13,6 +13,7 @@ import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { ForgotpwdComponent } from './forgotpwd/forgotpwd.component';
 import { SecurityComponent } from './security/security.component';
+import { AuthGuardService } from '../../../src/auth-guard.service';
 
 ModuleRegistry.registerModules([RowGroupingModule, SideBarModule]);
 
@@ -28,7 +29,7 @@ ModuleRegistry.registerModules([RowGroupingModule, SideBarModule]);
     ForgotpwdComponent,
     SecurityComponent
   ],
-  providers: [],
+  providers: [AuthGuardService],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
