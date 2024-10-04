@@ -27,8 +27,10 @@
 }
 .sidebar-open {
   margin-left: 320px; 
+  transition: margin-left 0.7s ease;
 }
 
 .sidebar-closed {
-  margin-left: 0; 
+  margin-left: 2rem; 
+  transition: margin-left 0.7s ease;
 }

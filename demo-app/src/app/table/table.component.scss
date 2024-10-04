@@ -67,8 +67,10 @@ demo-app-edit{
 }
 .sidebar-open {
   margin-left: 320px; 
+  transition: margin-left 0.7s ease;
 }
 
 .sidebar-closed {
   margin-left: 0; 
+  transition: margin-left 0.7s ease;
 }
