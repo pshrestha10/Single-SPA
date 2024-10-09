@@ -36,14 +36,18 @@ export class SignupComponent {
 
   onSubmit() {
     if (this.signupForm.valid) {
-      console.log('Form Valid:', this.signupForm.valid);
-      const existingData = JSON.parse(localStorage.getItem('signupData') || 'null');
-
-      if (existingData && existingData.email === this.signupForm.value.email) {
+      let existingData = JSON.parse(localStorage.getItem('signupData') || '[]');
+      if (!Array.isArray(existingData)) {
+        existingData = [];
+      }
+      const emailExists = existingData.some((user: any) => user.email === this.signupForm.value.email);
+  
+      if (emailExists) {
         this.emailExists = true;
       } else {
         this.emailExists = false;
-        localStorage.setItem('signupData', JSON.stringify(this.signupForm.value));
+        existingData.push(this.signupForm.value);
+        localStorage.setItem('signupData', JSON.stringify(existingData));
         this.router.navigate(['/login']);
       }
     } else {

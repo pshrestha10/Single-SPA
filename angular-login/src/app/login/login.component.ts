@@ -27,12 +27,13 @@ export class LoginComponent {
 
   onSubmit(): void {
     const { email, password } = this.loginForm.value;
-    const storedData = JSON.parse(localStorage.getItem('signupData') || 'null');
-    console.log(storedData)
-    console.log(storedData.email, storedData.password, password, email)
-    if (storedData) {
-      if (storedData.email === email) {
-        if (storedData.password === password) {
+    const storedData = JSON.parse(localStorage.getItem('signupData') || '[]');
+
+    if (Array.isArray(storedData)) {
+      const user = storedData.find((user: any) => user.email === email);
+
+      if (user) {
+        if (user.password === password) {
           console.log('Login successful');
           localStorage.setItem('isLoggedIn', 'true');
           this.router.navigate(['/']);
@@ -41,11 +42,11 @@ export class LoginComponent {
           this.showForgotPasswordLink = true;
         }
       } else {
-        this.loginError = 'Invalid email Sign up.';
+        this.loginError = 'Invalid email. Please sign up.';
         this.showForgotPasswordLink = false;
       }
     } else {
-      this.loginError = 'No user Sign up.';
+      this.loginError = 'No users found. Please sign up.';
       this.showForgotPasswordLink = false;
     }
   }

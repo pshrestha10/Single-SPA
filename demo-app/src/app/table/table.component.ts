@@ -23,6 +23,7 @@ export class TableComponent implements OnInit {
   filteredRowData: any[] = [];
   selectedRowData: any = null;
    @Input() showSideBar: boolean = true;
+   nameElement: any;
 
   public paginationNumberFormatter: (params: PaginationNumberFormatterParams) => string = (params: PaginationNumberFormatterParams) => {
     return params.value.toLocaleString();
@@ -37,16 +38,15 @@ export class TableComponent implements OnInit {
 
   @Input() set clickedData(value: any[]) {
     const hyphen = new RegExp('-');
-    
-    const nameElement = this.el.nativeElement.querySelector('.clicked-data-name');
-    if (nameElement) {
-      this.renderer.setProperty(nameElement, 'innerHTML', '');
+
+    if (this.nameElement) {
+      this.renderer.setProperty(this.nameElement, 'innerHTML', '');
     }
 
     if (value.length > 0) {
       const { name } = value[0];
-      if (nameElement) {
-        this.renderer.setProperty(nameElement, 'innerHTML', `Data of students:  ${name}`);
+      if (this.nameElement) {
+        this.renderer.setProperty(this.nameElement, 'innerHTML', `Data of students:  ${name}`);
       }
 
       if (['Male', 'Female', 'Others', 'Prefer not to say'].includes(name)) {
@@ -88,6 +88,7 @@ export class TableComponent implements OnInit {
         this.gridApi.setRowData(this.filteredRowData);
       }
     });
+    this.nameElement = this.el.nativeElement.querySelector('.clicked-data-name');
   }
 
   refreshData(): void {
@@ -95,6 +96,8 @@ export class TableComponent implements OnInit {
   }
   
   resetData(): void {
+    this.renderer.setProperty(this.nameElement, 'innerHTML', '');
+    this.renderer.setProperty(this.nameElement, 'innerHTML', ` `);
     const storedData = JSON.parse(localStorage.getItem('studentsData') || '[]');
     this.rowData = storedData;
     this.filteredRowData = storedData;
