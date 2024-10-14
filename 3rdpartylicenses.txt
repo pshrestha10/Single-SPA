@@ -27,6 +27,9 @@ MIT
 
 @test-app/root-config
 
+ag-grid-angular
+MIT
+
 ag-grid-community
 MIT
 The MIT License
