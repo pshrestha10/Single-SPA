@@ -1,0 +1,1 @@
+__webpack_public_path__ = window.__INJECTED_PUBLIC_PATH_BY_SINGLE_SPA__;
